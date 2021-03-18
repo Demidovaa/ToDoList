@@ -27,6 +27,7 @@ class TaskListViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = .clear
     
         createCell()
         configereTitle(text: "Today")
@@ -42,7 +43,7 @@ class TaskListViewController: UIViewController {
     }
     
     private func configureAddButton(backColor: UIColor = .gray, tintColor: UIColor = .black) {
-        addButtonView.round(radius: 30)
+        addButtonView.roundCorners(type: .all, radius: 30)
         addButtonView.backgroundColor = backColor
         
         addButton.tintColor = tintColor
@@ -56,8 +57,14 @@ class TaskListViewController: UIViewController {
     //MARK: - IBAction
     
     @IBAction private func tapPlus(_ sender: Any) {
-        countCell += 1
-        tableView.reloadData()
+        guard let popup = storyboard?.instantiateViewController(withIdentifier: "TaskPopupViewController") as? TaskPopupViewController else { return }
+        
+        popup.modalPresentationStyle = .overCurrentContext
+        popup.modalTransitionStyle = .coverVertical
+        
+        present(popup, animated: true, completion: nil)
+//        countCell += 1
+//        tableView.reloadData()
     }
 }
 

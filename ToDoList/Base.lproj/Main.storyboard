@@ -83,24 +83,71 @@
             </objects>
             <point key="canvasLocation" x="-146.37681159420291" y="83.705357142857139"/>
         </scene>
-        <!--View Controller-->
+        <!--Task Popup View Controller-->
         <scene sceneID="A4z-l7-Kel">
             <objects>
-                <viewController id="wnd-qE-eaH" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TaskPopupViewController" id="wnd-qE-eaH" customClass="TaskPopupViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sGx-H2-7dX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBI-BC-saA">
+                                <rect key="frame" x="0.0" y="475" width="414" height="421"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hv5-o5-Lkg">
+                                        <rect key="frame" x="16" y="20" width="382" height="401"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="hv5-o5-Lkg" secondAttribute="bottom" id="3FW-G4-vcK"/>
+                                    <constraint firstAttribute="trailing" secondItem="hv5-o5-Lkg" secondAttribute="trailing" constant="16" id="E5d-P8-7WT"/>
+                                    <constraint firstItem="hv5-o5-Lkg" firstAttribute="leading" secondItem="LBI-BC-saA" secondAttribute="leading" constant="16" id="Nck-Hl-FmU"/>
+                                    <constraint firstAttribute="height" constant="421" id="RG1-Hm-ZZq"/>
+                                    <constraint firstItem="hv5-o5-Lkg" firstAttribute="top" secondItem="LBI-BC-saA" secondAttribute="top" constant="20" id="ruG-zl-fOD"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cgl-OK-JeN">
+                                <rect key="frame" x="0.0" y="44" width="414" height="431"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="tapScreen" destination="wnd-qE-eaH" eventType="touchUpInside" id="HTq-fa-buM"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="5O9-lV-WUl"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Cgl-OK-JeN" firstAttribute="trailing" secondItem="5O9-lV-WUl" secondAttribute="trailing" id="639-7J-SwU"/>
+                            <constraint firstItem="Cgl-OK-JeN" firstAttribute="top" secondItem="5O9-lV-WUl" secondAttribute="top" id="D5U-oR-XcB"/>
+                            <constraint firstItem="LBI-BC-saA" firstAttribute="trailing" secondItem="5O9-lV-WUl" secondAttribute="trailing" id="Ibm-qh-192"/>
+                            <constraint firstItem="Cgl-OK-JeN" firstAttribute="leading" secondItem="5O9-lV-WUl" secondAttribute="leading" id="enD-82-bbh"/>
+                            <constraint firstItem="LBI-BC-saA" firstAttribute="leading" secondItem="5O9-lV-WUl" secondAttribute="leading" id="fSL-PH-MF3"/>
+                            <constraint firstItem="LBI-BC-saA" firstAttribute="bottom" secondItem="sGx-H2-7dX" secondAttribute="bottom" id="n4S-OD-vcK"/>
+                            <constraint firstItem="LBI-BC-saA" firstAttribute="top" secondItem="Cgl-OK-JeN" secondAttribute="bottom" id="zea-BL-T4M"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="hightSheetView" destination="RG1-Hm-ZZq" id="54j-Jd-lSV"/>
+                        <outlet property="sheetView" destination="LBI-BC-saA" id="FIa-JJ-meZ"/>
+                        <outlet property="tapButton" destination="Cgl-OK-JeN" id="22I-0G-PAv"/>
+                        <outlet property="textView" destination="hv5-o5-Lkg" id="CUE-Oa-UsE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="86I-Ms-oUx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-138" y="803"/>
+            <point key="canvasLocation" x="-139.13043478260872" y="802.90178571428567"/>
         </scene>
     </scenes>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

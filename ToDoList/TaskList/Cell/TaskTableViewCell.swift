@@ -24,7 +24,7 @@ class TaskTableViewCell: UITableViewCell {
     }
     
     private func configureView() {
-        rearView.round(radius: 6)
+        rearView.roundCorners(type: .all, radius: 6)
         rearView.backgroundColor = .gray
         
         textTaskLabel.numberOfLines = 0
