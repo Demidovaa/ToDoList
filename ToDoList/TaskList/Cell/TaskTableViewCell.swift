@@ -24,11 +24,14 @@ class TaskTableViewCell: UITableViewCell {
     }
     
     private func configureView() {
-        rearView.roundCorners(type: .all, radius: 6)
-        rearView.backgroundColor = .gray
+        rearView.roundCorners(type: .all, radius: 8)
+        rearView.backgroundColor = .systemYellow
         
         textTaskLabel.numberOfLines = 0
         textTaskLabel.lineBreakMode = .byWordWrapping
     }
     
+    func configureCell(text: String) {
+        textTaskLabel.text = text
+    }
 }

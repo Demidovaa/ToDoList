@@ -19,6 +19,7 @@ class TaskListViewController: UIViewController {
     //MARK: - Properties
     
     private var countCell = 0
+    private var textTask: [String] = []
     
     //MARK: - Lifecycle
     
@@ -28,7 +29,7 @@ class TaskListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
-    
+        
         createCell()
         configereTitle(text: "Today")
         configureAddButton(backColor: .systemTeal, tintColor: .white)
@@ -59,12 +60,24 @@ class TaskListViewController: UIViewController {
     @IBAction private func tapPlus(_ sender: Any) {
         guard let popup = storyboard?.instantiateViewController(withIdentifier: "TaskPopupViewController") as? TaskPopupViewController else { return }
         
-        popup.modalPresentationStyle = .overCurrentContext
+        popup.modalPresentationStyle = .overFullScreen
         popup.modalTransitionStyle = .coverVertical
         
+        popup.closePopup = { [weak self] text in
+            guard let self = self else { return }
+            if !text.isEmpty {
+                self.countCell += 1
+                self.textTask.append(text)
+                self.tableView.insertRows(at: [IndexPath(row: self.countCell - 1, section: 0)], with: .automatic)
+            }
+            self.dismiss(animated: true)
+            UIView.animate(withDuration: 0.3) {
+                self.view.alpha = 1.0
+            }
+        }
+        
+        view.alpha = 0.4
         present(popup, animated: true, completion: nil)
-//        countCell += 1
-//        tableView.reloadData()
     }
 }
 
@@ -81,6 +94,7 @@ extension TaskListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
+        cell.configureCell(text: textTask[indexPath.row])
         return cell
     }
 }
