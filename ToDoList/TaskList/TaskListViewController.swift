@@ -19,11 +19,7 @@ class TaskListViewController: UIViewController {
     //MARK: - Properties
     
     private var textTask: [String] = []
-    
-    private enum StatePopup {
-        case create
-        case editing
-    }
+    private var currentEditTaskIndex: IndexPath?
     
     //MARK: - Lifecycle
     
@@ -59,51 +55,24 @@ class TaskListViewController: UIViewController {
         tableView.register(nib, forCellReuseIdentifier: "TaskTableViewCell")
     }
     
-    private func presentingPopupFor(_ state: StatePopup, _ indexPath: IndexPath?) {
+    private func presentingPopupFor(indexPath: IndexPath?) {
         guard let popup = storyboard?.instantiateViewController(withIdentifier: "TaskPopupViewController") as? TaskPopupViewController else { return }
+        popup.delegateHandle = self
         
-        popup.modalPresentationStyle = .overFullScreen
-        popup.modalTransitionStyle = .coverVertical
-        
-        if state == .editing {
-            guard let index = indexPath else { return }
-            popup.task = textTask[index.row]
-        }
-        
-        popup.closePopup = { [weak self] task in
-            guard let self = self else { return }
-            if let text = task {
-                if state == .create {
-                    if !text.isEmpty {
-                        self.textTask.append(text)
-                        self.tableView.insertRows(at: [IndexPath(row: self.textTask.count - 1, section: 0)], with: .automatic)
-                    }
-                } else {
-                    guard let index = indexPath else { return }
-                    if !text.isEmpty {
-                        self.textTask[index.row] = text
-                        self.tableView.reloadRows(at: [index], with: .automatic)
-                    } else {
-                        self.textTask.remove(at: index.row)
-                        self.tableView.deleteRows(at: [index], with: .left)
-                    }
-                }
-            }
-            
-            self.dismiss(animated: true)
-            UIView.animate(withDuration: 0.3) {
-                self.view.alpha = 1.0
-            }
+        if let index = indexPath?.row {
+            popup.task = textTask[index]
         }
         
         view.alpha = 0.4
+        popup.modalPresentationStyle = .overFullScreen
+        popup.modalTransitionStyle = .coverVertical
         present(popup, animated: true, completion: nil)
     }
     
     //MARK: - IBAction
     
     @IBAction private func tapPlus(_ sender: Any) {
-        presentingPopupFor(.create, nil)
+        presentingPopupFor(indexPath: nil)
     }
 }
 
@@ -122,14 +91,9 @@ extension TaskListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentingPopupFor(.editing, indexPath)
+        currentEditTaskIndex = indexPath
+        presentingPopupFor(indexPath: indexPath)
     }
-    
-    //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-    //        guard editingStyle == .delete else { return }
-    //        textTask.remove(at: indexPath.row)
-    //        tableView.deleteRows(at: [indexPath], with: .automatic)
-    //    }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
@@ -155,5 +119,37 @@ extension TaskListViewController: UITableViewDataSource, UITableViewDelegate {
         config.performsFirstActionWithFullSwipe = false
         
         return config
+    }
+}
+
+extension TaskListViewController: DelegateTaskHandler {
+    func create(result: ResultTask) {
+        switch result {
+        case .success(let text):
+            textTask.append(text)
+            tableView.insertRows(at: [IndexPath(row: self.textTask.count - 1, section: 0)],
+                                      with: .automatic)
+        case .failure:
+            break
+        }
+    }
+    
+    func update(result: ResultTask) {
+        guard let currentEditTaskIndex = currentEditTaskIndex else { return }
+        switch result {
+        case .success(let text):
+            textTask[currentEditTaskIndex.row] = text
+            tableView.reloadRows(at: [currentEditTaskIndex], with: .automatic)
+        case .failure:
+            textTask.remove(at: currentEditTaskIndex.row)
+            tableView.deleteRows(at: [currentEditTaskIndex], with: .left)
+        }
+    }
+    
+    func closePopup() {
+        self.dismiss(animated: true)
+        UIView.animate(withDuration: 0.3) {
+            self.view.alpha = 1.0
+        }
     }
 }

@@ -7,7 +7,23 @@
 
 import UIKit
 
+enum ResultTask {
+    case success(text: String)
+    case failure
+}
+
+protocol DelegateTaskHandler: class {
+    func create(result: ResultTask)
+    func update(result: ResultTask)
+    func closePopup()
+}
+
 class TaskPopupViewController: UIViewController {
+    
+    private enum StatePopup {
+        case create
+        case editing
+    }
     
     //MARK: - IBOutlet
     
@@ -22,10 +38,21 @@ class TaskPopupViewController: UIViewController {
     @IBOutlet private weak var bottomConstaint: NSLayoutConstraint!
     
     //MARK: - Properties
-
-    var closePopup: ((String?) -> Void)?
-    var task: String?
-
+    
+    weak var delegateHandle: DelegateTaskHandler?
+    
+    var task: String? {
+        willSet {
+            if newValue != nil, newValue != "" {
+                state = .editing
+            }
+        }
+    }
+    
+    //MARK: - Private Properties
+    
+    private var state: StatePopup = .create
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -90,7 +117,7 @@ class TaskPopupViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
-                
+    
     private func showActionSheet(controller: UIViewController) {
         let alert = UIAlertController(title: "Do you want continue editing?",
                                       message: nil,
@@ -107,10 +134,32 @@ class TaskPopupViewController: UIViewController {
                                       style: .destructive,
                                       handler: { [weak self] _ in
                                         guard let self = self else { return }
-                                        self.closePopup?(nil)
+                                        self.delegateHandle?.closePopup()
                                       }))
         
         self.present(alert, animated: true)
+    }
+    
+    private func handleTask() {
+        let result: ResultTask
+        if validateInput(textView: textView) {
+            result = .success(text: textView.text)
+        } else {
+            result = .failure
+        }
+        
+        switch state {
+        case .create:
+            delegateHandle?.create(result: result)
+        case .editing:
+            delegateHandle?.update(result: result)
+        }
+        
+        delegateHandle?.closePopup()
+    }
+    
+    private func validateInput(textView: UITextView) -> Bool {
+        return (textView.text.trimmingCharacters(in: .whitespacesAndNewlines) != "")
     }
     
     //MARK: - IBAction
@@ -120,11 +169,11 @@ class TaskPopupViewController: UIViewController {
         if !textView.text.isEmpty {
             showActionSheet(controller: self)
         } else {
-            closePopup?(textView.text)
+            handleTask()
         }
     }
     
     @IBAction private func addTask() {
-        closePopup?(textView.text)
+        handleTask()
     }
 }
