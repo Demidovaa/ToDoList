@@ -23,8 +23,9 @@ class TaskPopupViewController: UIViewController {
     
     //MARK: - Properties
 
-    var closePopup: ((String) -> Void)?
-    
+    var closePopup: ((String?) -> Void)?
+    var task: String?
+
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -63,6 +64,7 @@ class TaskPopupViewController: UIViewController {
     }
     
     private func configureTextView() {
+        textView.text = task
         textView.tintColor = .systemTeal
         textView.backgroundColor = .clear
         textView.font = .systemFont(ofSize: 17)
@@ -105,7 +107,7 @@ class TaskPopupViewController: UIViewController {
                                       style: .destructive,
                                       handler: { [weak self] _ in
                                         guard let self = self else { return }
-                                        self.closePopup?("")
+                                        self.closePopup?(nil)
                                       }))
         
         self.present(alert, animated: true)

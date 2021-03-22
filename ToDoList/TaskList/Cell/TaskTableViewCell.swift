@@ -24,6 +24,8 @@ class TaskTableViewCell: UITableViewCell {
     }
     
     private func configureView() {
+        self.selectionStyle = .none
+        
         rearView.roundCorners(type: .all, radius: 8)
         rearView.backgroundColor = .systemYellow
         
