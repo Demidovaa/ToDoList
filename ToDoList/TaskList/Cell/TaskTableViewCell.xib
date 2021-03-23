@@ -20,8 +20,29 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FlE-Gi-4RX">
                         <rect key="frame" x="16" y="5" width="288" height="58"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9x-g9-t4X" customClass="RadioButton" customModule="ToDoList" customModuleProvider="target">
+                                <rect key="frame" x="10" y="19" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="3EE-nB-YiV"/>
+                                    <constraint firstAttribute="width" constant="20" id="wAs-1g-rIA"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="outerCircleLineWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="innerCircleGap">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tapRadioButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="3wq-gz-Ad7"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDp-7i-Q2l">
-                                <rect key="frame" x="10" y="15" width="268" height="28"/>
+                                <rect key="frame" x="40" y="15" width="238" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -29,9 +50,11 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="jDp-7i-Q2l" firstAttribute="leading" secondItem="m9x-g9-t4X" secondAttribute="trailing" constant="10" id="5kj-5f-R7C"/>
                             <constraint firstItem="jDp-7i-Q2l" firstAttribute="top" secondItem="FlE-Gi-4RX" secondAttribute="top" constant="15" id="Bhc-2F-xsx"/>
                             <constraint firstAttribute="trailing" secondItem="jDp-7i-Q2l" secondAttribute="trailing" constant="10" id="I2G-oS-GfL"/>
-                            <constraint firstItem="jDp-7i-Q2l" firstAttribute="leading" secondItem="FlE-Gi-4RX" secondAttribute="leading" constant="10" id="m6r-Ow-Lh1"/>
+                            <constraint firstItem="m9x-g9-t4X" firstAttribute="leading" secondItem="FlE-Gi-4RX" secondAttribute="leading" constant="10" id="Oml-BO-rDh"/>
+                            <constraint firstItem="jDp-7i-Q2l" firstAttribute="centerY" secondItem="m9x-g9-t4X" secondAttribute="centerY" id="WdP-Ae-Gdy"/>
                             <constraint firstAttribute="bottom" secondItem="jDp-7i-Q2l" secondAttribute="bottom" constant="15" id="pMO-01-wIk"/>
                         </constraints>
                     </view>
@@ -46,11 +69,17 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="rearView" destination="FlE-Gi-4RX" id="bYB-1n-qkS"/>
+                <outlet property="statusTaskButton" destination="m9x-g9-t4X" id="z4v-Gu-kTx"/>
                 <outlet property="textTaskLabel" destination="jDp-7i-Q2l" id="4hf-Ed-Flo"/>
             </connections>
             <point key="canvasLocation" x="111.59420289855073" y="111.83035714285714"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="m9x-g9-t4X">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+    </designables>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

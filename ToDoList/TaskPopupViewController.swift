@@ -159,7 +159,7 @@ class TaskPopupViewController: UIViewController {
     }
     
     private func validateInput(textView: UITextView) -> Bool {
-        return (textView.text.trimmingCharacters(in: .whitespacesAndNewlines) != "")
+        return (!textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
     }
     
     //MARK: - IBAction

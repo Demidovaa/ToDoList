@@ -18,7 +18,7 @@ class TaskListViewController: UIViewController {
     
     //MARK: - Properties
     
-    private var textTask: [String] = []
+    private var task: [TaskModel] = []
     private var currentEditTaskIndex: IndexPath?
     
     //MARK: - Lifecycle
@@ -60,7 +60,7 @@ class TaskListViewController: UIViewController {
         popup.delegateHandle = self
         
         if let index = indexPath?.row {
-            popup.task = textTask[index]
+            popup.task = task[index].textTask
         }
         
         view.alpha = 0.4
@@ -81,12 +81,16 @@ class TaskListViewController: UIViewController {
 extension TaskListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return textTask.count
+        return task.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
-        cell.configureCell(text: textTask[indexPath.row])
+        cell.configureCell(text: task[indexPath.row].textTask)
+        cell.completedHandler = { [weak self] isCompleted in
+            guard let self = self else { return }
+            self.task[indexPath.row].isCompleted = isCompleted
+        }
         return cell
     }
     
@@ -101,7 +105,7 @@ extension TaskListViewController: UITableViewDataSource, UITableViewDelegate {
         
         let delete = UIContextualAction(style: .normal, title: nil) { [weak self] (contextualAction, view, completion) in
             guard let self = self else { return }
-            self.textTask.remove(at: indexPath.row)
+            self.task.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .left)
             
             completion(true)
@@ -126,8 +130,8 @@ extension TaskListViewController: DelegateTaskHandler {
     func create(result: ResultTask) {
         switch result {
         case .success(let text):
-            textTask.append(text)
-            tableView.insertRows(at: [IndexPath(row: self.textTask.count - 1, section: 0)],
+            task.append(.init(textTask: text, backgroundColor: .systemTeal, isCompleted: false))
+            tableView.insertRows(at: [IndexPath(row: self.task.count - 1, section: 0)],
                                       with: .automatic)
         case .failure:
             break
@@ -138,10 +142,10 @@ extension TaskListViewController: DelegateTaskHandler {
         guard let currentEditTaskIndex = currentEditTaskIndex else { return }
         switch result {
         case .success(let text):
-            textTask[currentEditTaskIndex.row] = text
+            task[currentEditTaskIndex.row].textTask = text
             tableView.reloadRows(at: [currentEditTaskIndex], with: .automatic)
         case .failure:
-            textTask.remove(at: currentEditTaskIndex.row)
+            task.remove(at: currentEditTaskIndex.row)
             tableView.deleteRows(at: [currentEditTaskIndex], with: .left)
         }
     }

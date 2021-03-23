@@ -9,8 +9,15 @@ import UIKit
 
 class TaskTableViewCell: UITableViewCell {
     
+    //MARK: - IBOutlet
+    
     @IBOutlet private weak var textTaskLabel: UILabel!
     @IBOutlet private weak var rearView: UIView!
+    @IBOutlet private weak var statusTaskButton: RadioButton!
+    
+    //MARK: - Properties
+    
+    var completedHandler: ((Bool) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,9 +30,18 @@ class TaskTableViewCell: UITableViewCell {
 
     }
     
+    func configureCell(text: String) {
+        textTaskLabel.text = text
+    }
+    
+    //MARK: - Private Func
+    
     private func configureView() {
         self.selectionStyle = .none
         
+        statusTaskButton.innerCircleGap = 2
+        statusTaskButton.outerCircleLineWidth = 2
+  
         rearView.roundCorners(type: .all, radius: 8)
         rearView.backgroundColor = .systemYellow
         
@@ -33,7 +49,8 @@ class TaskTableViewCell: UITableViewCell {
         textTaskLabel.lineBreakMode = .byWordWrapping
     }
     
-    func configureCell(text: String) {
-        textTaskLabel.text = text
+    @IBAction private func tapRadioButton(_ sender: RadioButton) {
+        sender.isSelected = !sender.isSelected
+        completedHandler?(sender.isSelected ? true : false)
     }
 }
