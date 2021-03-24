@@ -13,21 +13,21 @@ class TaskTableViewCell: UITableViewCell {
     
     @IBOutlet private weak var textTaskLabel: UILabel!
     @IBOutlet private weak var rearView: UIView!
-    @IBOutlet private weak var statusTaskButton: RadioButton!
+    @IBOutlet private weak var statusTaskButton: UIButton!
     
     //MARK: - Properties
     
     var completedHandler: ((Bool) -> Void)?
     
+    private var isClicked: Bool = false {
+        didSet {
+            statusTaskButton.setImage(UIImage(systemName: isClicked ? "checkmark" : "circle" ), for: .normal)
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         configureView()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
     }
     
     func configureCell(text: String) {
@@ -39,9 +39,9 @@ class TaskTableViewCell: UITableViewCell {
     private func configureView() {
         self.selectionStyle = .none
         
-        statusTaskButton.innerCircleGap = 2
-        statusTaskButton.outerCircleLineWidth = 2
-  
+        statusTaskButton.setImage(UIImage(systemName: "circle"), for: .normal)
+        statusTaskButton.tintColor = .systemTeal
+        
         rearView.roundCorners(type: .all, radius: 8)
         rearView.backgroundColor = .systemYellow
         
@@ -49,8 +49,10 @@ class TaskTableViewCell: UITableViewCell {
         textTaskLabel.lineBreakMode = .byWordWrapping
     }
     
-    @IBAction private func tapRadioButton(_ sender: RadioButton) {
-        sender.isSelected = !sender.isSelected
-        completedHandler?(sender.isSelected ? true : false)
+    
+    @IBAction private func tapButton(_ sender: Any) {
+        statusTaskButton.isSelected = !statusTaskButton.isSelected
+        isClicked = statusTaskButton.isSelected
+        completedHandler?(isClicked ? true : false)
     }
 }

@@ -20,29 +20,21 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FlE-Gi-4RX">
                         <rect key="frame" x="16" y="5" width="288" height="58"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9x-g9-t4X" customClass="RadioButton" customModule="ToDoList" customModuleProvider="target">
-                                <rect key="frame" x="10" y="19" width="20" height="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9x-g9-t4X">
+                                <rect key="frame" x="10" y="16.5" width="25" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="3EE-nB-YiV"/>
-                                    <constraint firstAttribute="width" constant="20" id="wAs-1g-rIA"/>
+                                    <constraint firstAttribute="height" constant="25" id="3EE-nB-YiV"/>
+                                    <constraint firstAttribute="width" constant="25" id="wAs-1g-rIA"/>
                                 </constraints>
                                 <state key="normal">
                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="outerCircleLineWidth">
-                                        <real key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="innerCircleGap">
-                                        <real key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="tapRadioButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="3wq-gz-Ad7"/>
+                                    <action selector="tapButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0SH-s7-KqV"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDp-7i-Q2l">
-                                <rect key="frame" x="40" y="15" width="238" height="28"/>
+                                <rect key="frame" x="45" y="15" width="233" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -59,6 +51,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="FlE-Gi-4RX" secondAttribute="trailing" constant="16" id="CJa-Az-AIe"/>
                     <constraint firstAttribute="bottom" secondItem="FlE-Gi-4RX" secondAttribute="bottom" constant="5" id="CPG-Jd-5ir"/>
@@ -67,6 +60,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="rearView" destination="FlE-Gi-4RX" id="bYB-1n-qkS"/>
                 <outlet property="statusTaskButton" destination="m9x-g9-t4X" id="z4v-Gu-kTx"/>
@@ -75,11 +69,6 @@
             <point key="canvasLocation" x="111.59420289855073" y="111.83035714285714"/>
         </tableViewCell>
     </objects>
-    <designables>
-        <designable name="m9x-g9-t4X">
-            <size key="intrinsicContentSize" width="30" height="34"/>
-        </designable>
-    </designables>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

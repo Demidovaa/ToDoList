@@ -134,10 +134,12 @@ class RadioButton: UIButton {
     override func prepareForInterfaceBuilder() {
         customInitialization()
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         setCircleLayouts()
     }
+    
     override var isSelected: Bool {
         didSet {
             setFillState()
