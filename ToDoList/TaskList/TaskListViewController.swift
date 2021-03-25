@@ -19,8 +19,10 @@ class TaskListViewController: UIViewController {
     
     //MARK: - Properties
     
-    private var task: [TaskModel] = []
+    private var task: [TaskModel] = [] 
     private var currentEditTaskIndex: IndexPath?
+    
+    var viewColor: UIColor = .white
     
     //MARK: - Lifecycle
     
@@ -37,23 +39,28 @@ class TaskListViewController: UIViewController {
         tableView.backgroundColor = .clear
         
         createCell()
-        configereTitle(text: "Today")
-        configureAddButton(backColor: .systemTeal, tintColor: .white)
+        configureAddButton(backColor: viewColor)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configereTitle()
     }
     
     //MARK: - Private Func
     
-    private func configereTitle(text: String) {
-        self.title = text
+    private func configereTitle() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .automatic
     }
     
-    private func configureAddButton(backColor: UIColor = .gray, tintColor: UIColor = .black) {
+    private func configureAddButton(backColor: UIColor = .gray) {
         addButtonView.roundCorners(type: .all, radius: 30)
+        addButtonView.layer.borderWidth = 1
+        let blue: UIColor = .systemBlue
+        addButtonView.layer.borderColor = (backColor == .white ? blue : .white).cgColor
         addButtonView.backgroundColor = backColor
-        
-        addButton.tintColor = tintColor
+        addButton.tintColor = backColor == .white ? blue : .white
     }
     
     private func createCell() {
@@ -64,6 +71,7 @@ class TaskListViewController: UIViewController {
     private func presentingPopupFor(indexPath: IndexPath?) {
         guard let popup = storyboard?.instantiateViewController(withIdentifier: "TaskPopupViewController") as? TaskPopupViewController else { return }
         popup.delegateHandle = self
+        popup.viewColor = viewColor
         
         if let index = indexPath?.row {
             popup.task = task[index].textTask
@@ -109,7 +117,7 @@ extension TaskListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
-        cell.configureCell(text: task[indexPath.row].textTask)
+        cell.configureCell(text: task[indexPath.row].textTask, color: viewColor)
         cell.completedHandler = { [weak self] isCompleted in
             guard let self = self else { return }
             self.task[indexPath.row].isCompleted = isCompleted

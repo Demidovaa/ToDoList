@@ -30,8 +30,10 @@ class TaskTableViewCell: UITableViewCell {
         configureView()
     }
     
-    func configureCell(text: String) {
+    func configureCell(text: String, color: UIColor = .white) {
         textTaskLabel.text = text
+        rearView.backgroundColor = color
+        statusTaskButton.tintColor = color == .white ? .systemBlue : .white
     }
     
     //MARK: - Private Func

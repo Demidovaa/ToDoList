@@ -40,7 +40,7 @@ class TaskPopupViewController: UIViewController {
     //MARK: - Properties
     
     weak var delegateHandle: DelegateTaskHandler?
-    
+    var viewColor: UIColor = .white
     var task: String? {
         willSet {
             if newValue != nil, newValue != "" {
@@ -86,13 +86,13 @@ class TaskPopupViewController: UIViewController {
     private func configureView() {
         tapButton.backgroundColor = .clear
         appendButton.roundCorners(type: .all, radius: 15)
-        appendButton.backgroundColor = .systemTeal
-        appendButton.tintColor = .white
+        appendButton.backgroundColor = viewColor
+        appendButton.tintColor = viewColor == .white ? .systemBlue : .white
     }
     
     private func configureTextView() {
         textView.text = task
-        textView.tintColor = .systemTeal
+        textView.tintColor = viewColor == .white ? .systemBlue : viewColor
         textView.backgroundColor = .clear
         textView.font = .systemFont(ofSize: 17)
     }
