@@ -38,7 +38,7 @@ class TaskListViewController: UIViewController {
         
         tableView.backgroundColor = .clear
         
-        createCell()
+        registerCell()
         configureAddButton(backColor: viewColor)
     }
     
@@ -63,7 +63,7 @@ class TaskListViewController: UIViewController {
         addButton.tintColor = backColor == .white ? blue : .white
     }
     
-    private func createCell() {
+    private func registerCell() {
         let nib = UINib(nibName: "TaskTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "TaskTableViewCell")
     }

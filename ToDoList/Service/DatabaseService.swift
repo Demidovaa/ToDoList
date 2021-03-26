@@ -5,10 +5,35 @@
 //  Created by Anastasia Demidova on 25.03.2021.
 //
 
-import Foundation
 import RealmSwift
+ 
+protocol DatabaseServicing {
+    func saveObject<T>(_ object: T) where T: Object
+    func removeObject<T>(_ object: T) where T: Object
+    func getSavedObjects<T>(type: T.Type) -> [T]? where T: Object
+    func modify(_ block: () -> Void)
+}
 
-class DatabaseService {
+class DatabaseService: DatabaseServicing {
+    
+    init() {
+        loadStartSections()
+    }
+    
+    private func loadStartSections() {
+        if UserDefaults.isFirstLaunch() {
+            let sectionToday = Section()
+            sectionToday.name = "Today"
+            sectionToday.colorName = "green"
+            let sectionImportant = Section()
+            sectionImportant.name = "Important"
+            sectionImportant.colorName = "green"
+            
+            [sectionToday, sectionImportant].forEach { saveObject($0) }
+        }
+        print(Realm.Configuration.defaultConfiguration.fileURL ?? "")
+    }
+    
     func saveObject<T>(_ object: T) where T: Object {
         do {
             let realm = try Realm()

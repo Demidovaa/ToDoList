@@ -19,6 +19,7 @@ class Task: Object {
 class Section: Object {
     @objc dynamic var name = ""
     @objc dynamic var date = NSDate()
+    @objc dynamic var colorName = ""
     let tasks = List<Task>()
     
     override class func primaryKey() -> String { // section has a unique name
