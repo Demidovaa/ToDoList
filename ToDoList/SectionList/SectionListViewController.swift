@@ -18,7 +18,7 @@ class SectionListViewController: UIViewController {
     
     //MARK: - Properties
         
-    var viewColor: UIColor = .systemYellow
+    //var viewColor: UIColor = .systemYellow
     
     //MARK: - Lifecycle
     
@@ -58,9 +58,9 @@ class SectionListViewController: UIViewController {
     @IBAction private func tapPlus(_ sender: Any) {
         guard let creatingSection = storyboard?.instantiateViewController(withIdentifier: "CreatingSectionViewController") as? CreatingSectionViewController else { return }
         
-        creatingSection.completionHandler = { [weak self] (title, color) in
+        creatingSection.completionHandler = { [weak self] section in
             guard let self = self else { return }
-            //
+            self.model.setSection(section: section)
             self.dismiss(animated: true, completion: nil)
         }
         present(creatingSection, animated: true, completion: nil)
@@ -74,13 +74,16 @@ extension SectionListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.sectionList?.count ?? 0
+        return model.sectionsCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SectionTableViewCell", for: indexPath) as? SectionTableViewCell else { return UITableViewCell() }
-        let section = model.sectionList![indexPath.row]
-        cell.confugureCell(title: section.name, count: 0, color: viewColor)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SectionTableViewCell", for: indexPath) as? SectionTableViewCell
+        else { return .init() }
+        
+        if let formatData = model.getFormat(at: indexPath.row) {
+            cell.confugureCell(title: formatData.name, count: 0, color: formatData.color)
+        }
         return cell
     }
 }
@@ -91,12 +94,13 @@ extension SectionListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let taskList = storyboard?.instantiateViewController(withIdentifier: "TaskListViewController") as? TaskListViewController else { return }
-        taskList.title = model.sectionList?[indexPath.row].name
-        taskList.viewColor = viewColor
+        guard let taskList = storyboard?.instantiateViewController(withIdentifier: "TaskListViewController") as? TaskListViewController
+        else { return }
+        guard let formatData = model.getFormat(at: indexPath.row) else { return }
+        taskList.title = formatData.name
+        taskList.viewColor = formatData.color
         navigationController?.pushViewController(taskList, animated: true)
     }
 }

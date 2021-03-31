@@ -10,6 +10,7 @@ import UIKit
 enum RoundCornersType {
     case all
     case top
+    case left
 }
 
 extension UIView {    
@@ -19,6 +20,10 @@ extension UIView {
         switch type {
         case .all:
             self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+            
+        case .left:
+            self.layer.maskedCorners = [.layerMinXMinYCorner]
+            
         case .top:
             self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         }

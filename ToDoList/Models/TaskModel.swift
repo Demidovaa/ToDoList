@@ -17,13 +17,14 @@ class Task: Object {
 }
 
 class Section: Object {
+    @objc dynamic var id = UUID().uuidString
     @objc dynamic var name = ""
     @objc dynamic var date = NSDate()
-    @objc dynamic var colorName = ""
+    @objc dynamic var color = Data()
     let tasks = List<Task>()
     
     override class func primaryKey() -> String { // section has a unique name
-        return "name"
+        return "id"
     }
 }
 

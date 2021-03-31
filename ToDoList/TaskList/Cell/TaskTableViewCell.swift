@@ -45,6 +45,7 @@ class TaskTableViewCell: UITableViewCell {
         statusTaskButton.tintColor = .systemTeal
         
         rearView.roundCorners(type: .all, radius: 8)
+        //rearView.roundCorners(type: .left, radius: 16)
         rearView.backgroundColor = .systemYellow
         
         textTaskLabel.numberOfLines = 0

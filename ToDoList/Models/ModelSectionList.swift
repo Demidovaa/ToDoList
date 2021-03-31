@@ -6,14 +6,16 @@
 //
 
 import Foundation
+import UIKit.UIColor
 
 protocol SectionListModeling {
     var delegateUpdate: DelegateUpdateViewSection? { get set }
+    var sectionsCount: Int { get }
     
-    var sectionList: [Section]? { get }
-    
+    func getFormat(at index: Int) -> (name: String, color: UIColor)?
     func fetchSectionList()
     func setSection(section: Section)
+    func deleteSection(index: Int)
 }
 
 protocol DelegateUpdateViewSection: class {
@@ -24,10 +26,20 @@ class SectionListModel: SectionListModeling {
     
     private var localStore: DatabaseServicing
     
-    var sectionList: [Section]? {
+    private var sectionList: [Section]? {
         didSet {
             delegateUpdate?.updateSection()
         }
+    }
+    
+    var sectionsCount: Int {
+        sectionList?.count ?? 0
+    }
+    
+    func getFormat(at index: Int) -> (name: String, color: UIColor)? {
+        guard let section = sectionList?[index],
+              let color = UIColor.getColor(from: section.color) else { return nil }
+        return (name: section.name, color: color)
     }
     
     weak var delegateUpdate: DelegateUpdateViewSection?
@@ -43,5 +55,10 @@ class SectionListModel: SectionListModeling {
     func setSection(section: Section) {
         sectionList?.append(section)
         localStore.saveObject(section)
+    }
+    
+    func deleteSection(index: Int) {
+        guard let section = sectionList?.remove(at: index) else { return }
+        localStore.removeObject(section)
     }
 }

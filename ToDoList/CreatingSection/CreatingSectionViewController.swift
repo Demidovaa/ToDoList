@@ -9,6 +9,8 @@ import UIKit
 
 class CreatingSectionViewController: UIViewController {
     
+    //MARK: - IBOutlet
+    
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet private weak var doneButton: UIButton!
@@ -20,15 +22,25 @@ class CreatingSectionViewController: UIViewController {
     
     @IBOutlet private weak var collectionView: UICollectionView!
     
-    private var color: UIColor = .white
+    //MARK: - Properties
     
-    var completionHandler: ((String, UIColor) -> Void)?
+    private var color: UIColor = .systemGreen
+ 
+    var completionHandler: ((Section) -> Void)?
+    
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //collectionView.dataSource = self
+        
+        registerCell()
         configureView(color: color)
         configureTextField(color: color)
     }
+    
+    //MARK: - Private func
     
     private func configureView(color: UIColor) {
         doneButton.isEnabled = false
@@ -41,11 +53,17 @@ class CreatingSectionViewController: UIViewController {
         sectionTextField.textColor = color
         sectionTextField.tintColor = color
         sectionTextField.becomeFirstResponder()
+        sectionTextField.placeholder = "New name list"
         sectionTextField.clearButtonMode = .whileEditing
         sectionTextField.autocapitalizationType = .sentences
         customTextFieldView.roundCorners(type: .all, radius: 10)
         
         sectionTextField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
+    }
+    
+    private func registerCell() {
+        let nib = UINib(nibName: "ColorCollectionViewCell", bundle: nil)
+        collectionView.register(nib, forCellWithReuseIdentifier: "ColorCollectionViewCell")
     }
     
     private func showAlert() {
@@ -72,13 +90,31 @@ class CreatingSectionViewController: UIViewController {
         }
     }
     
+    //MARK: - IBAction
+    
     @IBAction private func tapCancel(_ sender: Any) {
         showAlert()
     }
     
     @IBAction private func tapDone(_ sender: Any) {
-        if let text = sectionTextField.text, !text.isEmpty {
-            completionHandler?(text, .white)
+        if let text = sectionTextField.text, !text.isEmpty,
+           let color = color.encode() {
+            let section = Section()
+            section.name = text
+            section.color = color
+            completionHandler?(section)
         }
     }
 }
+
+//extension CreatingSectionViewController: UICollectionViewDataSource {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return 20
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCollectionViewCell" , for: indexPath) as? ColorCollectionViewCell else { return UICollectionViewCell() }
+//        cell.configureCell(color: .black)
+//        return cell
+//    }
+//}

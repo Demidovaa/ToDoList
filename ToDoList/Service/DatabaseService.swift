@@ -24,11 +24,12 @@ class DatabaseService: DatabaseServicing {
         if UserDefaults.isFirstLaunch() {
             let sectionToday = Section()
             sectionToday.name = "Today"
-            sectionToday.colorName = "green"
+            guard let color = UIColor.systemYellow.encode() else { return }
+            sectionToday.color = color
             let sectionImportant = Section()
             sectionImportant.name = "Important"
-            sectionImportant.colorName = "green"
-            
+            sectionImportant.color = color
+        
             [sectionToday, sectionImportant].forEach { saveObject($0) }
         }
         print(Realm.Configuration.defaultConfiguration.fileURL ?? "")
