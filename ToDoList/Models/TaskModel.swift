@@ -23,7 +23,7 @@ class Section: Object {
     @objc dynamic var color = Data()
     let tasks = List<Task>()
     
-    override class func primaryKey() -> String { // section has a unique name
+    override class func primaryKey() -> String { 
         return "id"
     }
 }

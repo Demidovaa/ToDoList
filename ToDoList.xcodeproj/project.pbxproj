@@ -16,6 +16,8 @@
 		86030C2A260D257100F3CB1E /* CreatingSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86030C29260D257100F3CB1E /* CreatingSectionViewController.swift */; };
 		86030C51260DE3F800F3CB1E /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86030C50260DE3F800F3CB1E /* UserDefaults+Extension.swift */; };
 		861789DA2614D9090082B084 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861789D92614D9090082B084 /* UIColor+Extension.swift */; };
+		861789FD2615E4FC0082B084 /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861789FB2615E4FC0082B084 /* ColorCollectionViewCell.swift */; };
+		861789FE2615E4FC0082B084 /* ColorCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 861789FC2615E4FC0082B084 /* ColorCollectionViewCell.xib */; };
 		864B15B726020DC30017E6C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864B15B626020DC30017E6C9 /* AppDelegate.swift */; };
 		864B15B926020DC30017E6C9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864B15B826020DC30017E6C9 /* SceneDelegate.swift */; };
 		864B15BB26020DC30017E6C9 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864B15BA26020DC30017E6C9 /* TaskListViewController.swift */; };
@@ -42,6 +44,8 @@
 		86030C29260D257100F3CB1E /* CreatingSectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingSectionViewController.swift; sourceTree = "<group>"; };
 		86030C50260DE3F800F3CB1E /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		861789D92614D9090082B084 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		861789FB2615E4FC0082B084 /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
+		861789FC2615E4FC0082B084 /* ColorCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorCollectionViewCell.xib; sourceTree = "<group>"; };
 		864B15B326020DC30017E6C9 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		864B15B626020DC30017E6C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		864B15B826020DC30017E6C9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,8 +106,18 @@
 			isa = PBXGroup;
 			children = (
 				86030C29260D257100F3CB1E /* CreatingSectionViewController.swift */,
+				86178A002615E5090082B084 /* Cell */,
 			);
 			path = CreatingSection;
+			sourceTree = "<group>";
+		};
+		86178A002615E5090082B084 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				861789FB2615E4FC0082B084 /* ColorCollectionViewCell.swift */,
+				861789FC2615E4FC0082B084 /* ColorCollectionViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		864B15AA26020DC30017E6C9 = {
@@ -263,6 +277,7 @@
 				86B705862602465F00008C23 /* TaskTableViewCell.xib in Resources */,
 				864B15C326020DC60017E6C9 /* LaunchScreen.storyboard in Resources */,
 				864B15C026020DC60017E6C9 /* Assets.xcassets in Resources */,
+				861789FE2615E4FC0082B084 /* ColorCollectionViewCell.xib in Resources */,
 				864B15BE26020DC30017E6C9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				861789FD2615E4FC0082B084 /* ColorCollectionViewCell.swift in Sources */,
 				866705FB260A11430044F8AA /* RadioButton.swift in Sources */,
 				86B705852602465F00008C23 /* TaskTableViewCell.swift in Sources */,
 				866705EF2608C3100044F8AA /* UIImage+Extension.swift in Sources */,

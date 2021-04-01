@@ -222,10 +222,10 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TFY-Hx-iig">
-                                <rect key="frame" x="16" y="204" width="382" height="128"/>
+                                <rect key="frame" x="16" y="224" width="382" height="120"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="SJn-yT-JiP"/>
+                                    <constraint firstAttribute="height" constant="120" id="SJn-yT-JiP"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UAm-3X-xVy">
                                     <size key="itemSize" width="43" height="43"/>
@@ -253,7 +253,7 @@
                             <constraint firstItem="zOd-1X-xsn" firstAttribute="trailing" secondItem="TFY-Hx-iig" secondAttribute="trailing" constant="16" id="0ah-6c-i4O"/>
                             <constraint firstItem="Whn-nz-L81" firstAttribute="top" secondItem="OuR-BY-bD1" secondAttribute="bottom" constant="20" id="4Gy-qw-8Qq"/>
                             <constraint firstItem="eac-RT-EUV" firstAttribute="leading" secondItem="zOd-1X-xsn" secondAttribute="leading" id="Fbt-gd-pnV"/>
-                            <constraint firstItem="TFY-Hx-iig" firstAttribute="top" secondItem="Whn-nz-L81" secondAttribute="bottom" constant="10" id="LC7-DO-43b"/>
+                            <constraint firstItem="TFY-Hx-iig" firstAttribute="top" secondItem="Whn-nz-L81" secondAttribute="bottom" constant="30" id="LC7-DO-43b"/>
                             <constraint firstItem="eac-RT-EUV" firstAttribute="top" secondItem="zOd-1X-xsn" secondAttribute="top" id="Nk9-yo-S5f"/>
                             <constraint firstItem="TFY-Hx-iig" firstAttribute="leading" secondItem="zOd-1X-xsn" secondAttribute="leading" constant="16" id="RcB-m4-zsf"/>
                             <constraint firstItem="OuR-BY-bD1" firstAttribute="top" secondItem="eac-RT-EUV" secondAttribute="bottom" constant="20" id="Tc1-6E-w1x"/>

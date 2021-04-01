@@ -24,20 +24,24 @@ class CreatingSectionViewController: UIViewController {
     
     //MARK: - Properties
     
-    private var color: UIColor = .systemGreen
- 
     var completionHandler: ((Section) -> Void)?
+    
+    //MARK: - Private Properties
+    
+    private var colorSet: [UIColor] = [.systemYellow, .systemBlue, .systemGreen, .systemRed, .systemPurple, .systemTeal, .systemOrange, .systemPink, .systemIndigo, .brown, .white, .magenta]
+    private var selectedIndex = 0
     
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //collectionView.dataSource = self
+        collectionView.dataSource = self
+        collectionView.delegate = self
         
         registerCell()
-        configureView(color: color)
-        configureTextField(color: color)
+        configureView(color: colorSet[selectedIndex])
+        configureTextField(color: colorSet[selectedIndex])
     }
     
     //MARK: - Private func
@@ -47,6 +51,9 @@ class CreatingSectionViewController: UIViewController {
         backView.roundCorners(type: .all, radius: 30)
         backView.backgroundColor = color
         listImageView.tintColor = color == .white ? .systemBlue : .white
+        
+        backView.layer.masksToBounds = false
+        backView.addShadow(color: .black, size: (3,3))
     }
     
     private func configureTextField(color: UIColor) {
@@ -61,6 +68,13 @@ class CreatingSectionViewController: UIViewController {
         sectionTextField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
     }
     
+    private func updateUI(color: UIColor) {
+        backView.backgroundColor = color
+        listImageView.tintColor = color == .white ? .systemBlue : .white
+        sectionTextField.textColor = color
+        sectionTextField.tintColor = color
+    }
+    
     private func registerCell() {
         let nib = UINib(nibName: "ColorCollectionViewCell", bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: "ColorCollectionViewCell")
@@ -70,15 +84,15 @@ class CreatingSectionViewController: UIViewController {
         let alert = UIAlertController(title: nil,
                                       message: nil,
                                       preferredStyle: .actionSheet)
-
-                alert.addAction(UIAlertAction(title: "Continue", style: .cancel, handler: nil))
-                alert.addAction(UIAlertAction(title: "Discard Changes",
-                                              style: .destructive,
-                                              handler: { [weak self] _ in
-                                                guard let self = self else { return }
-                                                self.dismiss(animated: true, completion: nil)
-                }))
-                self.present(alert, animated: true, completion: nil)
+        
+        alert.addAction(UIAlertAction(title: "Continue", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Discard Changes",
+                                      style: .destructive,
+                                      handler: { [weak self] _ in
+                                        guard let self = self else { return }
+                                        self.dismiss(animated: true, completion: nil)
+                                      }))
+        self.present(alert, animated: true, completion: nil)
         
     }
     
@@ -98,7 +112,7 @@ class CreatingSectionViewController: UIViewController {
     
     @IBAction private func tapDone(_ sender: Any) {
         if let text = sectionTextField.text, !text.isEmpty,
-           let color = color.encode() {
+           let color = colorSet[selectedIndex].encode() {
             let section = Section()
             section.name = text
             section.color = color
@@ -107,14 +121,28 @@ class CreatingSectionViewController: UIViewController {
     }
 }
 
-//extension CreatingSectionViewController: UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 20
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCollectionViewCell" , for: indexPath) as? ColorCollectionViewCell else { return UICollectionViewCell() }
-//        cell.configureCell(color: .black)
-//        return cell
-//    }
-//}
+extension CreatingSectionViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return colorSet.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let item = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCollectionViewCell" , for: indexPath) as? ColorCollectionViewCell else { return UICollectionViewCell() }
+        if indexPath.row == selectedIndex {
+            item.configureSelectedItem(color: colorSet[indexPath.row])
+        } else {
+            item.configureItem(color: colorSet[indexPath.row])
+        }
+        return item
+    }
+}
+
+extension CreatingSectionViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedIndex = indexPath.row
+        DispatchQueue.main.async {
+            self.updateUI(color: self.colorSet[self.selectedIndex])
+        }
+        collectionView.reloadData()
+    }
+}

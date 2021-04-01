@@ -28,4 +28,17 @@ extension UIView {
             self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         }
     }
+    
+    func addShadow(color: UIColor, opacity: Float = 0.7, radius: CGFloat = 4.0, size: (w: Int, h: Int)) {
+        layer.shadowColor = color.cgColor
+        layer.shadowOffset = CGSize(width: size.w, height: size.h)
+        layer.shadowOpacity = opacity
+        layer.shadowRadius = radius
+    }
+    
+    func addBorder(borderColor:CGColor, borderWith:CGFloat, borderCornerRadius:CGFloat){
+        layer.borderWidth = borderWith
+        layer.borderColor = borderColor
+        layer.cornerRadius = borderCornerRadius
+    }
 }

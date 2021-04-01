@@ -15,11 +15,7 @@ class SectionListViewController: UIViewController {
     
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var addSectionButton: UIButton!
-    
-    //MARK: - Properties
         
-    //var viewColor: UIColor = .systemYellow
-    
     //MARK: - Lifecycle
     
     override func loadView() {
@@ -37,8 +33,9 @@ class SectionListViewController: UIViewController {
         tableView.dataSource = self
         
         model.fetchSectionList()
-                
+        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureTitle()
@@ -51,6 +48,21 @@ class SectionListViewController: UIViewController {
     private func registerCell() {
         let nib = UINib(nibName: "SectionTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "SectionTableViewCell")
+    }
+    
+    private func showAlert(index: Int) {
+        guard let name = model.getFormat(at: index)?.name else { return }
+        let alert = UIAlertController(title: "Delete \(name)", message: "Are you sure you want to delete this section?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes",
+                                      style: .destructive,
+                                      handler: { [weak self] _ in
+                                        guard let self = self else { return }
+                                        self.model.deleteSection(index: index)
+                                      }))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     //MARK: - IBAction
@@ -85,6 +97,12 @@ extension SectionListViewController: UITableViewDataSource {
             cell.confugureCell(title: formatData.name, count: 0, color: formatData.color)
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            showAlert(index: indexPath.row)
+        }
     }
 }
 
