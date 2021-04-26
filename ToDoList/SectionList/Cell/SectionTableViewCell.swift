@@ -9,8 +9,10 @@ import UIKit
 
 class SectionTableViewCell: UITableViewCell {
 
-    @IBOutlet private weak var backImageView: UIView!
-    @IBOutlet private weak var sectionImageView: UIImageView!
+    //MARK: - IBOutlet
+    
+    @IBOutlet private weak var colorView: UIView!
+    @IBOutlet private weak var backView: UIView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var countTaskLabel: UILabel!
     
@@ -20,19 +22,30 @@ class SectionTableViewCell: UITableViewCell {
         configureContentView()
     }
     
+    //MARK: - Private Func
+    
     private func configureContentView() {
-        self.accessoryType = .disclosureIndicator
+        self.backgroundColor = .clear
+        self.selectionStyle = .none
         
-        backImageView.roundCorners(type: .all, radius: 12.5)
+        colorView.roundCorners(type: .custom, radius: 7.5)
+        backView.roundCorners(type: .all, radius: 15)
         nameLabel.font = UIFont.systemFont(ofSize: 17)
         countTaskLabel.textColor = .systemGray2
-        countTaskLabel.font = UIFont.systemFont(ofSize: 15)
+        countTaskLabel.font = UIFont.systemFont(ofSize: 12)
     }
     
-    func confugureCell(title: String, count: Int, color: UIColor) {
+    //MARK: - Configure cell
+    
+    func confugureCell(title: String, count: Int, completedTask: Int = 0, color: UIColor) {
         nameLabel.text = title
-        countTaskLabel.text = "\(count)"
-        backImageView.backgroundColor = color
-        backImageView.tintColor = color == .white ? .systemBlue : .white
+        countTaskLabel.text = "\(completedTask)/\(count) completed"
+        colorView.backgroundColor = color
+        backView.layer.masksToBounds = false
+        backView.addShadow(color: .black, radius: 1.0, size: (3,3))
+        if color == .white {
+            colorView.layer.borderWidth = 1
+            colorView.layer.borderColor = UIColor.separator.cgColor
+        }
     }
 }

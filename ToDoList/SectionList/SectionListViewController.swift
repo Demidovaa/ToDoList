@@ -15,25 +15,28 @@ class SectionListViewController: UIViewController {
     
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var addSectionButton: UIButton!
+    @IBOutlet private weak var addButtonView: UIView!
         
-    //MARK: - Lifecycle
-    
-    override func loadView() {
-        super.loadView()
-        model = SectionListModel(localStore: DatabaseService())
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        let localStore = DatabaseService()
+        model = SectionListModel(localStore: localStore)
         model.delegateUpdate = self
     }
     
+    //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         
         registerCell()
+        configureView()
         
         tableView.delegate = self
         tableView.dataSource = self
         
         model.fetchSectionList()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +45,16 @@ class SectionListViewController: UIViewController {
     }
     
     private func configureTitle() {
+        navigationController?.navigationBar.isHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+    private func configureView() {
+        addSectionButton.tintColor = .white
+        addButtonView.backgroundColor = .systemBlue
+        addButtonView.roundCorners(type: .all, radius: 30)
+        addButtonView.layer.masksToBounds = false
+        addButtonView.addShadow(color: .black, size: (3,3))
     }
     
     private func registerCell() {
@@ -106,11 +118,7 @@ extension SectionListViewController: UITableViewDataSource {
     }
 }
 
-extension SectionListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-    
+extension SectionListViewController: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         

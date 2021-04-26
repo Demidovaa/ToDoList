@@ -36,7 +36,7 @@ class TaskListViewController: UIViewController {
         tableView.dragDelegate = self
         tableView.dropDelegate = self
         
-        tableView.backgroundColor = .clear
+        //tableView.backgroundColor = .clear
         
         registerCell()
         configureAddButton(backColor: viewColor)
@@ -50,6 +50,7 @@ class TaskListViewController: UIViewController {
     //MARK: - Private Func
     
     private func configereTitle() {
+        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .automatic
     }
@@ -91,6 +92,7 @@ class TaskListViewController: UIViewController {
     //MARK: - IBAction
     
     @IBAction private func tapPlus(_ sender: Any) {
+        navigationController?.view.alpha = 0.4
         presentingPopupFor(indexPath: nil)
     }
 }
@@ -257,6 +259,7 @@ extension TaskListViewController: DelegateTaskHandler {
         self.dismiss(animated: true)
         UIView.animate(withDuration: 0.3) {
             self.view.alpha = 1.0
+            self.navigationController?.view.alpha = 1.0
         }
     }
 }

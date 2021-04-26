@@ -107,7 +107,11 @@ class CreatingSectionViewController: UIViewController {
     //MARK: - IBAction
     
     @IBAction private func tapCancel(_ sender: Any) {
-        showAlert()
+        if sectionTextField.text != "" {
+            showAlert()
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction private func tapDone(_ sender: Any) {
@@ -140,9 +144,7 @@ extension CreatingSectionViewController: UICollectionViewDataSource {
 extension CreatingSectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
-        DispatchQueue.main.async {
-            self.updateUI(color: self.colorSet[self.selectedIndex])
-        }
+        updateUI(color: self.colorSet[self.selectedIndex])
         collectionView.reloadData()
     }
 }

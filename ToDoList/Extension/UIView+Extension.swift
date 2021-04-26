@@ -11,6 +11,7 @@ enum RoundCornersType {
     case all
     case top
     case left
+    case custom
 }
 
 extension UIView {    
@@ -26,6 +27,9 @@ extension UIView {
             
         case .top:
             self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            
+        case .custom:
+            self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         }
     }
     
