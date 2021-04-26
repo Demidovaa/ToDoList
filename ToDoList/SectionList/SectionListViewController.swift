@@ -52,9 +52,9 @@ class SectionListViewController: UIViewController {
     private func configureView() {
         addSectionButton.tintColor = .white
         addButtonView.backgroundColor = .systemBlue
-        addButtonView.roundCorners(type: .all, radius: 30)
+        addButtonView.roundCorners(type: .all, radius: Constants.buttonRounding)
         addButtonView.layer.masksToBounds = false
-        addButtonView.addShadow(color: .black, size: (3,3))
+        addButtonView.addShadow(color: .black, size: Constants.sizeShadow)
     }
     
     private func registerCell() {
@@ -111,10 +111,15 @@ extension SectionListViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            showAlert(index: indexPath.row)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let delete = UIContextualAction(style: .normal, title: nil) { [weak self] (contextualAction, view, completion) in
+            guard let self = self else { return }
+            self.showAlert(index: indexPath.row)
+            completion(true)
         }
+        
+        return UISwipeActionsConfiguration.getDeleteActionConfiguration(deleteAction: delete)
     }
 }
 

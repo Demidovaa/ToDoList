@@ -40,7 +40,7 @@ extension UIView {
         layer.shadowRadius = radius
     }
     
-    func addBorder(borderColor:CGColor, borderWith:CGFloat, borderCornerRadius:CGFloat){
+    func addBorder(borderColor: CGColor, borderWith: CGFloat, borderCornerRadius: CGFloat) {
         layer.borderWidth = borderWith
         layer.borderColor = borderColor
         layer.cornerRadius = borderCornerRadius

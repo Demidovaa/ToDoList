@@ -48,12 +48,12 @@ class CreatingSectionViewController: UIViewController {
     
     private func configureView(color: UIColor) {
         doneButton.isEnabled = false
-        backView.roundCorners(type: .all, radius: 30)
+        backView.roundCorners(type: .all, radius: Constants.buttonRounding)
         backView.backgroundColor = color
         listImageView.tintColor = color == .white ? .systemBlue : .white
         
         backView.layer.masksToBounds = false
-        backView.addShadow(color: .black, size: (3,3))
+        backView.addShadow(color: .black, size: Constants.sizeShadow)
     }
     
     private func configureTextField(color: UIColor) {
@@ -63,7 +63,7 @@ class CreatingSectionViewController: UIViewController {
         sectionTextField.placeholder = "New name list"
         sectionTextField.clearButtonMode = .whileEditing
         sectionTextField.autocapitalizationType = .sentences
-        customTextFieldView.roundCorners(type: .all, radius: 10)
+        customTextFieldView.roundCorners(type: .all, radius: Constants.textFieldRounding)
         
         sectionTextField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
     }

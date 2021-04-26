@@ -24,6 +24,8 @@
 		864B15BE26020DC30017E6C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 864B15BC26020DC30017E6C9 /* Main.storyboard */; };
 		864B15C026020DC60017E6C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 864B15BF26020DC60017E6C9 /* Assets.xcassets */; };
 		864B15C326020DC60017E6C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 864B15C126020DC60017E6C9 /* LaunchScreen.storyboard */; };
+		866242822636D2B800BF44B5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866242812636D2B800BF44B5 /* Constants.swift */; };
+		866242872636EC2700BF44B5 /* UISwipeActionsConfiguration+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866242862636EC2700BF44B5 /* UISwipeActionsConfiguration+Extension.swift */; };
 		866705EF2608C3100044F8AA /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866705EE2608C3100044F8AA /* UIImage+Extension.swift */; };
 		866705F52609F6BE0044F8AA /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866705F42609F6BE0044F8AA /* TaskModel.swift */; };
 		866705FB260A11430044F8AA /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866705FA260A11430044F8AA /* RadioButton.swift */; };
@@ -54,6 +56,8 @@
 		864B15BF26020DC60017E6C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		864B15C226020DC60017E6C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		864B15C426020DC60017E6C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		866242812636D2B800BF44B5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		866242862636EC2700BF44B5 /* UISwipeActionsConfiguration+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISwipeActionsConfiguration+Extension.swift"; sourceTree = "<group>"; };
 		866705EE2608C3100044F8AA /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		866705F42609F6BE0044F8AA /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		866705FA260A11430044F8AA /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
@@ -151,12 +155,21 @@
 				86030C2F260D257C00F3CB1E /* CreatingSection */,
 				86B705802602430300008C23 /* TaskList */,
 				86030C05260C9C3400F3CB1E /* Service */,
+				866242842636E72400BF44B5 /* Settings */,
 				86B7058F26036C2200008C23 /* Extension */,
 				864B15BF26020DC60017E6C9 /* Assets.xcassets */,
 				864B15C126020DC60017E6C9 /* LaunchScreen.storyboard */,
 				864B15C426020DC60017E6C9 /* Info.plist */,
 			);
 			path = ToDoList;
+			sourceTree = "<group>";
+		};
+		866242842636E72400BF44B5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				866242812636D2B800BF44B5 /* Constants.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		866705F72609F7860044F8AA /* Models */ = {
@@ -193,6 +206,7 @@
 				866705EE2608C3100044F8AA /* UIImage+Extension.swift */,
 				86030C50260DE3F800F3CB1E /* UserDefaults+Extension.swift */,
 				861789D92614D9090082B084 /* UIColor+Extension.swift */,
+				866242862636EC2700BF44B5 /* UISwipeActionsConfiguration+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -337,6 +351,7 @@
 				866705EF2608C3100044F8AA /* UIImage+Extension.swift in Sources */,
 				864B15BB26020DC30017E6C9 /* TaskListViewController.swift in Sources */,
 				86B705AA2603A21200008C23 /* TaskPopupViewController.swift in Sources */,
+				866242872636EC2700BF44B5 /* UISwipeActionsConfiguration+Extension.swift in Sources */,
 				86030C51260DE3F800F3CB1E /* UserDefaults+Extension.swift in Sources */,
 				86030C1B260CA98C00F3CB1E /* SectionListViewController.swift in Sources */,
 				861789DA2614D9090082B084 /* UIColor+Extension.swift in Sources */,
@@ -348,6 +363,7 @@
 				866705F52609F6BE0044F8AA /* TaskModel.swift in Sources */,
 				86030C27260CF6DD00F3CB1E /* ModelSectionList.swift in Sources */,
 				864B15B926020DC30017E6C9 /* SceneDelegate.swift in Sources */,
+				866242822636D2B800BF44B5 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

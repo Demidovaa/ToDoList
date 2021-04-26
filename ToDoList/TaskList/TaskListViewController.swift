@@ -36,8 +36,6 @@ class TaskListViewController: UIViewController {
         tableView.dragDelegate = self
         tableView.dropDelegate = self
         
-        //tableView.backgroundColor = .clear
-        
         registerCell()
         configureAddButton(backColor: viewColor)
     }
@@ -56,8 +54,8 @@ class TaskListViewController: UIViewController {
     }
     
     private func configureAddButton(backColor: UIColor = .gray) {
-        addButtonView.roundCorners(type: .all, radius: 30)
-        addButtonView.layer.borderWidth = 1
+        addButtonView.roundCorners(type: .all, radius: Constants.buttonRounding)
+        addButtonView.layer.borderWidth = Constants.borderWith
         let blue: UIColor = .systemBlue
         addButtonView.layer.borderColor = (backColor == .white ? blue : .white).cgColor
         addButtonView.backgroundColor = backColor
@@ -130,24 +128,13 @@ extension TaskListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        var actions = [UIContextualAction]()
-        
         let delete = UIContextualAction(style: .normal, title: nil) { [weak self] (contextualAction, view, completion) in
             guard let self = self else { return }
             self.removeCell(for: indexPath)
             completion(true)
         }
-        let configureImage = UIImage.SymbolConfiguration(pointSize: 12.0, weight: .bold, scale: .large)
-        delete.image = UIImage(systemName: "trash",
-                               withConfiguration: configureImage)?.withTintColor(.white, renderingMode: .alwaysTemplate).addBackgroundCircle(.systemRed)
-        delete.backgroundColor = .systemBackground // Update color
         
-        actions.append(delete)
-        
-        let config = UISwipeActionsConfiguration(actions: actions)
-        config.performsFirstActionWithFullSwipe = false
-        
-        return config
+        return UISwipeActionsConfiguration.getDeleteActionConfiguration(deleteAction: delete)
     }
 }
 

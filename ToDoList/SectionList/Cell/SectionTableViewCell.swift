@@ -8,7 +8,7 @@
 import UIKit
 
 class SectionTableViewCell: UITableViewCell {
-
+    
     //MARK: - IBOutlet
     
     @IBOutlet private weak var colorView: UIView!
@@ -28,11 +28,15 @@ class SectionTableViewCell: UITableViewCell {
         self.backgroundColor = .clear
         self.selectionStyle = .none
         
-        colorView.roundCorners(type: .custom, radius: 7.5)
-        backView.roundCorners(type: .all, radius: 15)
-        nameLabel.font = UIFont.systemFont(ofSize: 17)
         countTaskLabel.textColor = .systemGray2
-        countTaskLabel.font = UIFont.systemFont(ofSize: 12)
+        nameLabel.font = UIFont.systemFont(ofSize: Constants.fontTitle)
+        countTaskLabel.font = UIFont.systemFont(ofSize: Constants.fontSubtitle)
+        
+        colorView.roundCorners(type: .custom, radius: Constants.cellFlagRounding)
+        backView.roundCorners(type: .all, radius: Constants.cellRounding)
+        backView.addBorder(borderColor: UIColor.separator.cgColor,
+                           borderWith: Constants.borderWith,
+                           borderCornerRadius: Constants.cellRounding)
     }
     
     //MARK: - Configure cell
@@ -42,10 +46,13 @@ class SectionTableViewCell: UITableViewCell {
         countTaskLabel.text = "\(completedTask)/\(count) completed"
         colorView.backgroundColor = color
         backView.layer.masksToBounds = false
-        backView.addShadow(color: .black, radius: 1.0, size: (3,3))
+        backView.addShadow(color: .black,
+                           radius: Constants.cellShadowRounding,
+                           size: Constants.sizeShadow)
         if color == .white {
-            colorView.layer.borderWidth = 1
-            colorView.layer.borderColor = UIColor.separator.cgColor
+            colorView.addBorder(borderColor: UIColor.separator.cgColor,
+                                borderWith: Constants.borderWith,
+                                borderCornerRadius: Constants.cellFlagRounding)
         }
     }
 }
