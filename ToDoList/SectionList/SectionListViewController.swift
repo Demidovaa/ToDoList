@@ -41,14 +41,9 @@ class SectionListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureTitle()
-    }
-    
-    private func configureTitle() {
         navigationController?.navigationBar.isHidden = true
-        navigationController?.navigationBar.prefersLargeTitles = false
     }
-    
+
     private func configureView() {
         addSectionButton.tintColor = .white
         addButtonView.backgroundColor = .systemBlue
@@ -58,8 +53,7 @@ class SectionListViewController: UIViewController {
     }
     
     private func registerCell() {
-        let nib = UINib(nibName: "SectionTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "SectionTableViewCell")
+        tableView.register(cellType: SectionTableViewCell.self)
     }
     
     private func showAlert(index: Int) {
@@ -102,9 +96,7 @@ extension SectionListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SectionTableViewCell", for: indexPath) as? SectionTableViewCell
-        else { return .init() }
-        
+        let cell = tableView.dequeueReusableCell(with: SectionTableViewCell.self, for: indexPath)
         if let formatData = model.getFormat(at: indexPath.row) {
             cell.confugureCell(title: formatData.name, count: 0, color: formatData.color)
         }
@@ -127,8 +119,7 @@ extension SectionListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let taskList = storyboard?.instantiateViewController(withIdentifier: "TaskListViewController") as? TaskListViewController
-        else { return }
+        guard let taskList = storyboard?.instantiateViewController(withIdentifier: "TaskListViewController") as? TaskListViewController else { return }
         guard let formatData = model.getFormat(at: indexPath.row) else { return }
         taskList.title = formatData.name
         taskList.viewColor = formatData.color

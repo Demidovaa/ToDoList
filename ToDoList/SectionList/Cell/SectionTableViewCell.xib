@@ -21,7 +21,7 @@
                         <rect key="frame" x="16" y="10" width="288" height="60"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uhg-d0-9nH">
-                                <rect key="frame" x="20" y="16" width="41.5" height="20.5"/>
+                                <rect key="frame" x="20" y="16" width="253" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -40,19 +40,20 @@
                             <constraint firstItem="Ely-KC-x3L" firstAttribute="leading" secondItem="HTQ-pX-z75" secondAttribute="leading" constant="20" symbolic="YES" id="Hs8-md-Uls"/>
                             <constraint firstItem="Uhg-d0-9nH" firstAttribute="leading" secondItem="HTQ-pX-z75" secondAttribute="leading" constant="20" symbolic="YES" id="MhA-lc-F2P"/>
                             <constraint firstItem="Uhg-d0-9nH" firstAttribute="top" secondItem="HTQ-pX-z75" secondAttribute="top" constant="16" id="nQX-cR-Fnr"/>
+                            <constraint firstAttribute="trailing" secondItem="Uhg-d0-9nH" secondAttribute="trailing" constant="15" id="sRt-h9-U0r"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ze-PN-oPw">
-                        <rect key="frame" x="16" y="10" width="14" height="62"/>
+                        <rect key="frame" x="16" y="10" width="15" height="61"/>
                         <color key="backgroundColor" systemColor="systemRedColor"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="14" id="0HI-gg-wfT"/>
+                            <constraint firstAttribute="width" constant="15" id="0HI-gg-wfT"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="HTQ-pX-z75" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="KPL-gc-DaS"/>
-                    <constraint firstAttribute="bottom" secondItem="6Ze-PN-oPw" secondAttribute="bottom" constant="8" id="Vvq-UP-OOe"/>
+                    <constraint firstAttribute="bottom" secondItem="6Ze-PN-oPw" secondAttribute="bottom" constant="9" id="Vvq-UP-OOe"/>
                     <constraint firstItem="6Ze-PN-oPw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Wyr-DF-28h"/>
                     <constraint firstAttribute="trailing" secondItem="HTQ-pX-z75" secondAttribute="trailing" constant="16" id="XMS-tt-Xpx"/>
                     <constraint firstAttribute="bottom" secondItem="HTQ-pX-z75" secondAttribute="bottom" constant="10" id="a1s-Ia-bSg"/>

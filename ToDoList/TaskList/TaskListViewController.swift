@@ -13,7 +13,6 @@ class TaskListViewController: UIViewController {
     //MARK: - IBOutlet
     
     @IBOutlet private weak var tableView: UITableView!
-    
     @IBOutlet private weak var addButton: UIButton!
     @IBOutlet private weak var addButtonView: UIView!
     
@@ -42,29 +41,21 @@ class TaskListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configereTitle()
+        navigationController?.navigationBar.isHidden = false
     }
     
     //MARK: - Private Func
-    
-    private func configereTitle() {
-        navigationController?.navigationBar.isHidden = false
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .automatic
-    }
-    
+        
     private func configureAddButton(backColor: UIColor = .gray) {
         addButtonView.roundCorners(type: .all, radius: Constants.buttonRounding)
-        addButtonView.layer.borderWidth = Constants.borderWith
-        let blue: UIColor = .systemBlue
-        addButtonView.layer.borderColor = (backColor == .white ? blue : .white).cgColor
+        addButtonView.layer.masksToBounds = false
+        addButtonView.addShadow(color: .black, size: Constants.sizeShadow)
         addButtonView.backgroundColor = backColor
-        addButton.tintColor = backColor == .white ? blue : .white
+        addButton.tintColor = backColor == .white ? .systemBlue : .white
     }
     
     private func registerCell() {
-        let nib = UINib(nibName: "TaskTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "TaskTableViewCell")
+        tableView.register(cellType: TaskTableViewCell.self)
     }
     
     private func presentingPopupFor(indexPath: IndexPath?) {
@@ -98,30 +89,19 @@ class TaskListViewController: UIViewController {
 //MARK: - Extension
 
 extension TaskListViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return task.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "Current task:" : "Completed task:"
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return task.filter { !$0.isCompleted }.count
-        } else {
-            return task.filter { $0.isCompleted }.count
-        }
+        return "Task:"
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
-        cell.configureCell(text: task[indexPath.row].textTask, color: viewColor)
-        cell.completedHandler = { [weak self] isCompleted in
+        let cell = tableView.dequeueReusableCell(with: TaskTableViewCell.self, for: indexPath)
+        cell.configureCell(text: task[indexPath.row].textTask, styleCell: .init(rawValue: task[indexPath.row].isCompleted), color: viewColor) { [weak self] isCompleted in
             guard let self = self else { return }
             self.task[indexPath.row].isCompleted = isCompleted
-            self.tableView.reloadData()
         }
         return cell
     }

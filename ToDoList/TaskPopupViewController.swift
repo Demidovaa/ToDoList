@@ -166,10 +166,11 @@ class TaskPopupViewController: UIViewController {
     
     @IBAction private func tapScreen() {
         textView.resignFirstResponder()
-        if !textView.text.isEmpty {
-            showActionSheet(controller: self)
-        } else {
-            handleTask()
+        switch state {
+        case .editing:
+            textView.text != task ? showActionSheet(controller: self) : handleTask()
+        case .create:
+            !textView.text.isEmpty ? showActionSheet(controller: self) : handleTask()
         }
     }
     
