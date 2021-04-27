@@ -123,6 +123,9 @@ extension SectionListViewController: UITableViewDelegate {
         guard let formatData = model.getFormat(at: indexPath.row) else { return }
         taskList.title = formatData.name
         taskList.viewColor = formatData.color
+        guard let section = self.model.getSection(index: indexPath.row) else { return }
+        let databaseService = DatabaseService()
+        taskList.model = TaskListModel(localStore: databaseService, section: section)
         navigationController?.pushViewController(taskList, animated: true)
     }
 }

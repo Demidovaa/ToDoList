@@ -8,7 +8,7 @@
 import UIKit
 
 enum ResultTask {
-    case success(text: String)
+    case success(task: Task)
     case failure
 }
 
@@ -18,7 +18,7 @@ protocol DelegateTaskHandler: class {
     func closePopup()
 }
 
-class TaskPopupViewController: UIViewController {
+class TaskPopupViewController: UIViewController, UITextViewDelegate {
     
     private enum StatePopup {
         case create
@@ -41,9 +41,9 @@ class TaskPopupViewController: UIViewController {
     
     weak var delegateHandle: DelegateTaskHandler?
     var viewColor: UIColor = .white
-    var task: String? {
+    var task: Task? {
         willSet {
-            if newValue != nil, newValue != "" {
+            if newValue != nil {
                 state = .editing
             }
         }
@@ -59,6 +59,8 @@ class TaskPopupViewController: UIViewController {
         super.viewDidLoad()
         configureView()
         configureTextView()
+        textView.delegate = self
+        textView.setPlaceholder(text: "Add task description...")
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
                                                name: UIResponder.keyboardWillShowNotification,
@@ -74,6 +76,7 @@ class TaskPopupViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         textView.becomeFirstResponder()
+        textViewDidChange(textView)
     }
     
     override func viewDidLayoutSubviews() {
@@ -83,6 +86,10 @@ class TaskPopupViewController: UIViewController {
     
     //MARK: - Private func
     
+    func textViewDidChange(_ textView: UITextView) {
+        textView.checkPlaceholder()
+    }
+    
     private func configureView() {
         tapButton.backgroundColor = .clear
         appendButton.roundCorners(type: .all, radius: 15)
@@ -91,7 +98,7 @@ class TaskPopupViewController: UIViewController {
     }
     
     private func configureTextView() {
-        textView.text = task
+        textView.text = task?.name
         textView.tintColor = viewColor == .white ? .systemBlue : viewColor
         textView.backgroundColor = .clear
         textView.font = .systemFont(ofSize: 17)
@@ -143,7 +150,9 @@ class TaskPopupViewController: UIViewController {
     private func handleTask() {
         let result: ResultTask
         if validateInput(textView: textView) {
-            result = .success(text: textView.text)
+            let task = Task()
+            task.name = textView.text
+            result = .success(task: task)
         } else {
             result = .failure
         }
@@ -168,7 +177,7 @@ class TaskPopupViewController: UIViewController {
         textView.resignFirstResponder()
         switch state {
         case .editing:
-            textView.text != task ? showActionSheet(controller: self) : handleTask()
+            textView.text != task?.name ? showActionSheet(controller: self) : handleTask()
         case .create:
             !textView.text.isEmpty ? showActionSheet(controller: self) : handleTask()
         }
