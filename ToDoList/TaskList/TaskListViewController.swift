@@ -21,8 +21,7 @@ class TaskListViewController: UIViewController {
     //MARK: - Properties
     
     private var currentEditTaskIndex: IndexPath?
-    
-    var viewColor: UIColor = .white
+    private var viewColor: UIColor = .white
     
     //MARK: - Lifecycle
     
@@ -37,7 +36,8 @@ class TaskListViewController: UIViewController {
         tableView.dropDelegate = self
         
         registerCell()
-        configureAddButton(backColor: viewColor)
+        setDataInSection()
+        configureAddButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,13 +46,19 @@ class TaskListViewController: UIViewController {
     }
     
     //MARK: - Private Func
-        
-    private func configureAddButton(backColor: UIColor = .gray) {
+    
+    private func setDataInSection() {
+        guard let formatData = model.getInfoSection() else { return }
+        self.title = formatData.name
+        viewColor = formatData.color
+    }
+    
+    private func configureAddButton() {
         addButtonView.roundCorners(type: .all, radius: Constants.buttonRounding)
         addButtonView.layer.masksToBounds = false
         addButtonView.addShadow(color: .black, size: Constants.sizeShadow)
-        addButtonView.backgroundColor = backColor
-        addButton.tintColor = backColor == .white ? .systemBlue : .white
+        addButtonView.backgroundColor = viewColor
+        addButton.tintColor = viewColor == .white ? .systemBlue : .white
     }
     
     private func registerCell() {
@@ -155,7 +161,7 @@ extension TaskListViewController:  UITableViewDragDelegate, UITableViewDropDeleg
             }
             tableView.performBatchUpdates({
                 self.model.removeTask(index: sourceIndexPath.row)
-                let task: Task = .init()
+                let task: Task = .init() // BUG
                 task.name = item.dragItem.localObject as! String
                 self.model.insertTask(task: task, index: dIndexPath.row)
                 tableView.deleteRows(at: [sourceIndexPath], with: .automatic)

@@ -30,8 +30,8 @@ class TaskTableViewCell: UITableViewCell {
         super.awakeFromNib()
         configureView()
     }
-        
-    enum StyleTextCell {
+    
+    enum StyleCell {
         case standard
         case completed
         
@@ -43,27 +43,34 @@ class TaskTableViewCell: UITableViewCell {
                 self = .completed
             }
         }
-                
-        fileprivate var config: TextStyle {
+        
+        fileprivate struct ConfigStyle {
+            let textStyle: TextStyle
+            let isCompleted: Bool
+        }
+        
+        fileprivate var config: ConfigStyle {
             switch self {
             case .standard:
-                return TextStyle.text
+                return ConfigStyle(textStyle: TextStyle.text, isCompleted: false)
             case .completed:
-                return TextStyle.strikethroughText
+                return ConfigStyle(textStyle: TextStyle.strikethroughText, isCompleted: true)
             }
         }
     }
     
-    func configureCell(text: String, styleCell: StyleTextCell, color: UIColor = .white, tapHandler: ((Bool) -> Void)? = nil) {
+    func configureCell(text: String, styleCell: StyleCell, color: UIColor = .white, tapHandler: ((Bool) -> Void)? = nil) {
         let config = styleCell.config
-        textTaskLabel.attributedText = text.styled(config)
+        textTaskLabel.attributedText = text.styled(config.textStyle)
+        statusTaskButton.setImage(UIImage(systemName: styleCell.config.isCompleted ? "checkmark" : "circle" ), for: .normal)
+        
         rearView.backgroundColor = color
         statusTaskButton.tintColor = color == .white ? .systemBlue : .white
         
         if color == .white {
             rearView.addBorder(borderColor: UIColor.separator.cgColor,
-                                borderWith: Constants.borderWith,
-                                borderCornerRadius: Constants.cellFlagRounding)
+                               borderWith: Constants.borderWith,
+                               borderCornerRadius: Constants.cellFlagRounding)
         }
         completedHandler = tapHandler
     }
@@ -72,9 +79,6 @@ class TaskTableViewCell: UITableViewCell {
     
     private func configureView() {
         self.selectionStyle = .none
-        
-        statusTaskButton.setImage(UIImage(systemName: "circle"), for: .normal)
-        statusTaskButton.tintColor = .systemTeal
         
         rearView.roundCorners(type: .all, radius: Constants.cellRounding)
         rearView.backgroundColor = .systemYellow

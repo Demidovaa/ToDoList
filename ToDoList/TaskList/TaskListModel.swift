@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import UIKit.UIColor
 
-protocol TaskListModeling: class {
+protocol TaskListModeling: AnyObject {
     var taskCount: Int { get }
     
     func getTask(from index: Int) -> Task
@@ -15,12 +16,13 @@ protocol TaskListModeling: class {
     func addTask(task: Task)
     func insertTask(task: Task, index: Int)
     func completeTask(index: Int, isComplete: Bool)
+    func getInfoSection() -> (name: String, color: UIColor)?
 }
 
 class TaskListModel: TaskListModeling {
     private var localStore: DatabaseServicing
     
-    private var section: Section
+    private var section: Section 
     
     init(localStore: DatabaseServicing, section: Section) {
         self.localStore = localStore
@@ -33,6 +35,11 @@ class TaskListModel: TaskListModeling {
     
     func getTask(from index: Int) -> Task {
         return section.tasks[index]
+    }
+    
+    func getInfoSection() -> (name: String, color: UIColor)? {
+        guard let color = UIColor.getColor(from: section.color) else { return nil }
+        return (name: section.name, color: color)
     }
     
     func addTask(task: Task) {

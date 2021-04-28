@@ -41,6 +41,7 @@ class SectionListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tableView.reloadData()
         navigationController?.navigationBar.isHidden = true
     }
 
@@ -57,7 +58,7 @@ class SectionListViewController: UIViewController {
     }
     
     private func showAlert(index: Int) {
-        guard let name = model.getFormat(at: index)?.name else { return }
+        guard let name = model.getSection(index: index)?.name else { return }
         let alert = UIAlertController(title: "Delete \(name)", message: "Are you sure you want to delete this section?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Yes",
@@ -97,8 +98,10 @@ extension SectionListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(with: SectionTableViewCell.self, for: indexPath)
-        if let formatData = model.getFormat(at: indexPath.row) {
-            cell.confugureCell(title: formatData.name, count: 0, color: formatData.color)
+        if let section = model.getSection(index: indexPath.row),
+           let countTask = model.getInfoTask(index: indexPath.row) {
+            cell.confugureCell(title: section.name, count: countTask.all, completedTask: countTask.completed,
+                               color: UIColor.getColor(from: section.color) ?? .white)
         }
         return cell
     }
@@ -120,9 +123,6 @@ extension SectionListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         guard let taskList = storyboard?.instantiateViewController(withIdentifier: "TaskListViewController") as? TaskListViewController else { return }
-        guard let formatData = model.getFormat(at: indexPath.row) else { return }
-        taskList.title = formatData.name
-        taskList.viewColor = formatData.color
         guard let section = self.model.getSection(index: indexPath.row) else { return }
         let databaseService = DatabaseService()
         taskList.model = TaskListModel(localStore: databaseService, section: section)

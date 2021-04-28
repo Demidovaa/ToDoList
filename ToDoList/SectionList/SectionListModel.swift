@@ -12,14 +12,14 @@ protocol SectionListModeling {
     var delegateUpdate: DelegateUpdateViewSection? { get set }
     var sectionsCount: Int { get }
     
-    func getFormat(at index: Int) -> (name: String, color: UIColor)?
+    func getInfoTask(index: Int) -> (all: Int, completed: Int)?
     func getSection(index: Int) -> Section?
     func fetchSectionList()
     func setSection(section: Section)
     func deleteSection(index: Int)
 }
 
-protocol DelegateUpdateViewSection: class {
+protocol DelegateUpdateViewSection: AnyObject {
     func updateSection()
 }
 
@@ -34,7 +34,7 @@ class SectionListModel: SectionListModeling {
             delegateUpdate?.updateSection()
         }
     }
-   
+    
     init(localStore: DatabaseServicing) {
         self.localStore = localStore
     }
@@ -47,10 +47,11 @@ class SectionListModel: SectionListModeling {
         return sectionList?[index]
     }
     
-    func getFormat(at index: Int) -> (name: String, color: UIColor)? {
-        guard let section = sectionList?[index],
-              let color = UIColor.getColor(from: section.color) else { return nil }
-        return (name: section.name, color: color)
+    func getInfoTask(index: Int) -> (all: Int, completed: Int)? {
+        guard let section = sectionList?[index] else { return nil }
+        let all = section.tasks.count
+        let completed = section.tasks.filter({ $0.isCompleted }).count        
+        return (all, completed)
     }
     
     func fetchSectionList() {
