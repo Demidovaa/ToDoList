@@ -163,7 +163,6 @@
 				864B15B626020DC30017E6C9 /* AppDelegate.swift */,
 				864B15B826020DC30017E6C9 /* SceneDelegate.swift */,
 				864B15BC26020DC30017E6C9 /* Main.storyboard */,
-				86B705A92603A21200008C23 /* TaskPopupViewController.swift */,
 				866705FA260A11430044F8AA /* RadioButton.swift */,
 				866705F72609F7860044F8AA /* Models */,
 				86030C1D260CA99600F3CB1E /* SectionList */,
@@ -201,6 +200,7 @@
 			children = (
 				8672133226385D5100353B86 /* TaskListModel.swift */,
 				864B15BA26020DC30017E6C9 /* TaskListViewController.swift */,
+				86B705A92603A21200008C23 /* TaskPopupViewController.swift */,
 				86B705882602466900008C23 /* Cell */,
 			);
 			path = TaskList;

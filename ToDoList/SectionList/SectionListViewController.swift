@@ -100,8 +100,17 @@ extension SectionListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(with: SectionTableViewCell.self, for: indexPath)
         if let section = model.getSection(index: indexPath.row),
            let countTask = model.getInfoTask(index: indexPath.row) {
-            cell.confugureCell(title: section.name, count: countTask.all, completedTask: countTask.completed,
+            
+            cell.confugureCell(title: section.name,
+                               count: countTask.all,
+                               completedTask: countTask.completed,
                                color: UIColor.getColor(from: section.color) ?? .white)
+            
+            cell.completedHandler = { [weak self, indexPath] in
+                guard let creatingSection = self?.storyboard?.instantiateViewController(withIdentifier: "CreatingSectionViewController") as? CreatingSectionViewController else { return }
+                creatingSection.editSection = self?.model.getSection(index: indexPath.row)
+                self?.present(creatingSection, animated: true, completion: nil)
+            }
         }
         return cell
     }

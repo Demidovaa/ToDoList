@@ -15,6 +15,9 @@ class SectionTableViewCell: UITableViewCell {
     @IBOutlet private weak var backView: UIView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var countTaskLabel: UILabel!
+    @IBOutlet private weak var editButton: UIButton!
+    
+    var completedHandler: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,5 +57,9 @@ class SectionTableViewCell: UITableViewCell {
                                 borderWith: Constants.borderWith,
                                 borderCornerRadius: Constants.cellFlagRounding)
         }
+    }
+    
+    @IBAction func tapButton(_ sender: Any) {
+        completedHandler?()
     }
 }

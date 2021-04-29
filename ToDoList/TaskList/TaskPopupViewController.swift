@@ -12,7 +12,7 @@ enum ResultTask {
     case failure
 }
 
-protocol DelegateTaskHandler: class {
+protocol DelegateTaskHandler: AnyObject {
     func create(result: ResultTask)
     func update(result: ResultTask)
     func closePopup()

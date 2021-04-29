@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,14 +32,29 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kiz-9Z-fag">
+                                <rect key="frame" x="253" y="19" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="Unk-4a-Aja"/>
+                                    <constraint firstAttribute="height" constant="20" id="b8f-Pe-fKd"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemBlueColor"/>
+                                <state key="normal" image="square.and.pencil" catalog="system"/>
+                                <connections>
+                                    <action selector="tapButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XGY-4w-mF3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Kiz-9Z-fag" secondAttribute="bottom" constant="19" id="0Gb-V2-GW8"/>
                             <constraint firstAttribute="bottom" secondItem="Ely-KC-x3L" secondAttribute="bottom" constant="5" id="1mj-m6-Mej"/>
                             <constraint firstItem="Ely-KC-x3L" firstAttribute="top" secondItem="Uhg-d0-9nH" secondAttribute="bottom" constant="6.5" id="AhM-Yj-S8j"/>
                             <constraint firstItem="Ely-KC-x3L" firstAttribute="leading" secondItem="HTQ-pX-z75" secondAttribute="leading" constant="20" symbolic="YES" id="Hs8-md-Uls"/>
                             <constraint firstItem="Uhg-d0-9nH" firstAttribute="leading" secondItem="HTQ-pX-z75" secondAttribute="leading" constant="20" symbolic="YES" id="MhA-lc-F2P"/>
+                            <constraint firstItem="Kiz-9Z-fag" firstAttribute="top" secondItem="HTQ-pX-z75" secondAttribute="top" constant="19" id="TH1-ax-ekN"/>
                             <constraint firstItem="Uhg-d0-9nH" firstAttribute="top" secondItem="HTQ-pX-z75" secondAttribute="top" constant="16" id="nQX-cR-Fnr"/>
+                            <constraint firstAttribute="trailing" secondItem="Kiz-9Z-fag" secondAttribute="trailing" constant="15" id="pt0-2v-Ii2"/>
                             <constraint firstAttribute="trailing" secondItem="Uhg-d0-9nH" secondAttribute="trailing" constant="15" id="sRt-h9-U0r"/>
                         </constraints>
                     </view>
@@ -67,14 +82,19 @@
                 <outlet property="backView" destination="HTQ-pX-z75" id="QyZ-ZK-grM"/>
                 <outlet property="colorView" destination="6Ze-PN-oPw" id="njh-iD-IIi"/>
                 <outlet property="countTaskLabel" destination="Ely-KC-x3L" id="PlI-LQ-pi5"/>
+                <outlet property="editButton" destination="Kiz-9Z-fag" id="6M5-zp-jqv"/>
                 <outlet property="nameLabel" destination="Uhg-d0-9nH" id="HPs-uu-b2P"/>
             </connections>
             <point key="canvasLocation" x="-146.37681159420291" y="84.375"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

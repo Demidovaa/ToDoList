@@ -39,6 +39,8 @@ class SectionListModel: SectionListModeling {
         self.localStore = localStore
     }
     
+    //MARK: - Func for protocol SectionListModeling
+    
     var sectionsCount: Int {
         sectionList?.count ?? 0
     }

@@ -12,14 +12,20 @@ protocol TaskListModeling: AnyObject {
     var taskCount: Int { get }
     
     func getTask(from index: Int) -> Task
-    func removeTask(index: Int)
-    func addTask(task: Task)
-    func insertTask(task: Task, index: Int)
-    func completeTask(index: Int, isComplete: Bool)
+    func removeTask(from index: Int)
+    func add(task: Task)
+    func update(task: Task, action: TaskListModel.Modify, from index: Int)
     func getInfoSection() -> (name: String, color: UIColor)?
 }
 
 class TaskListModel: TaskListModeling {
+    
+    enum Modify {
+        case changeName
+        case changeState(isCompleted: Bool)
+        case insertTask
+    }
+    
     private var localStore: DatabaseServicing
     
     private var section: Section 
@@ -28,6 +34,8 @@ class TaskListModel: TaskListModeling {
         self.localStore = localStore
         self.section = section
     }
+    
+    //MARK: - Func for protocol TaskListModeling
     
     var taskCount: Int {
         section.tasks.count
@@ -42,25 +50,26 @@ class TaskListModel: TaskListModeling {
         return (name: section.name, color: color)
     }
     
-    func addTask(task: Task) {
+    func add(task: Task) {
         localStore.modify { [weak self] in
             self?.section.tasks.append(task)
         }
     }
     
-    func completeTask(index: Int, isComplete: Bool) {
+    func update(task: Task, action: Modify, from index: Int) {
         localStore.modify { [weak self] in
-            self?.section.tasks[index].isCompleted = isComplete
+            switch action {
+            case .changeName:
+                self?.section.tasks[index].name = task.name
+            case .changeState(let isCompleted):
+                self?.section.tasks[index].isCompleted = isCompleted
+            case .insertTask:
+                self?.section.tasks.insert(task, at: index)
+            }
         }
     }
     
-    func insertTask(task: Task, index: Int) {
-        localStore.modify { [weak self] in
-            self?.section.tasks.insert(task, at: index)
-        }
-    }
-    
-    func removeTask(index: Int) {
+    func removeTask(from index: Int) {
         localStore.removeObject(section.tasks[index])
     }
 }

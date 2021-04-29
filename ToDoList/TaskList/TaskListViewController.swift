@@ -81,7 +81,7 @@ class TaskListViewController: UIViewController {
     }
     
     private func removeCell(for indexPath: IndexPath) {
-        model.removeTask(index: indexPath.row)
+        model.removeTask(from: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .left)
     }
     
@@ -107,8 +107,8 @@ extension TaskListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let task = model.getTask(from: indexPath.row)
         let cell = tableView.dequeueReusableCell(with: TaskTableViewCell.self, for: indexPath)
-        cell.configureCell(text: task.name, styleCell: .init(rawValue: task.isCompleted), color: viewColor) { [weak self] isCompleted in
-            self?.model.completeTask(index: indexPath.row, isComplete: isCompleted)
+        cell.configureCell(text: task.name, styleCell: .init(rawValue: task.isCompleted), color: viewColor) { [weak self] state in
+            self?.model.update(task: task, action: .changeState(isCompleted: state), from: indexPath.row)
         }
         return cell
     }
@@ -160,10 +160,10 @@ extension TaskListViewController:  UITableViewDragDelegate, UITableViewDropDeleg
                 dIndexPath.row = tableView.numberOfRows(inSection: 0) - 1
             }
             tableView.performBatchUpdates({
-                self.model.removeTask(index: sourceIndexPath.row)
+                self.model.removeTask(from: sourceIndexPath.row)
                 let task: Task = .init() // BUG
                 task.name = item.dragItem.localObject as! String
-                self.model.insertTask(task: task, index: dIndexPath.row)
+                self.model.update(task: task, action: .insertTask, from: dIndexPath.row)
                 tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
                 tableView.insertRows(at: [dIndexPath], with: .automatic)
             })
@@ -209,7 +209,7 @@ extension TaskListViewController: DelegateTaskHandler {
     func create(result: ResultTask) {
         switch result {
         case .success(let task):
-            model.addTask(task: task)
+            model.add(task: task)
             tableView.insertRows(at: [IndexPath(row: self.model.taskCount - 1, section: 0)],
                                  with: .automatic)
         case .failure:
@@ -221,8 +221,7 @@ extension TaskListViewController: DelegateTaskHandler {
         guard let currentEditTaskIndex = currentEditTaskIndex else { return }
         switch result {
         case .success(let task):
-            //model.getTask(from:currentEditTaskIndex.row) = task
-            //self.task[currentEditTaskIndex.row] = task
+            model.update(task: task, action: .changeName, from: currentEditTaskIndex.row)
             tableView.reloadRows(at: [currentEditTaskIndex], with: .automatic)
         case .failure:
             removeCell(for: currentEditTaskIndex)
