@@ -44,7 +44,7 @@ class SectionListViewController: UIViewController {
         tableView.reloadData()
         navigationController?.navigationBar.isHidden = true
     }
-
+    
     private func configureView() {
         addSectionButton.tintColor = .white
         addButtonView.backgroundColor = .systemBlue
@@ -76,12 +76,7 @@ class SectionListViewController: UIViewController {
     
     @IBAction private func tapPlus(_ sender: Any) {
         guard let creatingSection = storyboard?.instantiateViewController(withIdentifier: "CreatingSectionViewController") as? CreatingSectionViewController else { return }
-        
-        creatingSection.completionHandler = { [weak self] section in
-            guard let self = self else { return }
-            self.model.setSection(section: section)
-            self.dismiss(animated: true, completion: nil)
-        }
+        creatingSection.delegateHandler = self
         present(creatingSection, animated: true, completion: nil)
     }
 }
@@ -108,7 +103,9 @@ extension SectionListViewController: UITableViewDataSource {
             
             cell.completedHandler = { [weak self, indexPath] in
                 guard let creatingSection = self?.storyboard?.instantiateViewController(withIdentifier: "CreatingSectionViewController") as? CreatingSectionViewController else { return }
+                creatingSection.delegateHandler = self
                 creatingSection.editSection = self?.model.getSection(index: indexPath.row)
+                self?.model.selectedEditIndex = indexPath.row
                 self?.present(creatingSection, animated: true, completion: nil)
             }
         }
@@ -142,5 +139,20 @@ extension SectionListViewController: UITableViewDelegate {
 extension SectionListViewController: DelegateUpdateViewSection {
     func updateSection() {
         tableView.reloadData()
+    }
+}
+
+extension SectionListViewController: DelegateSectionHandler {
+    func createSection(_ section: Section) {
+        model.setSection(section: section)
+    }
+    
+    func editingSection(name: String?, color: Data?) {
+        model.updateSection(name: name, color: color)
+        tableView.reloadData()
+    }
+    
+    func closeVC() {
+        self.dismiss(animated: true, completion: nil)
     }
 }

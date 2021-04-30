@@ -63,8 +63,9 @@ class DatabaseService: DatabaseServicing {
     func getSavedObjects<T>(type: T.Type) -> [T]? where T: Object {
         do {
             let realm = try Realm()
-            let obj = realm.objects(T.self)
-            return obj.map { $0 }
+            return realm.objects(T.self)
+                .sorted(byKeyPath: #keyPath(Section.date), ascending: true)
+                .map { $0 }
         }
         catch (let error) {
             print(error)

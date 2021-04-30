@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol DelegateSectionHandler: AnyObject {
+    func createSection(_ section: Section)
+    func editingSection(name: String?, color: Data?)
+    func closeVC()
+}
+
 class CreatingSectionViewController: UIViewController {
     
     private enum State {
@@ -29,7 +35,8 @@ class CreatingSectionViewController: UIViewController {
     
     //MARK: - Properties
     
-    var completionHandler: ((Section) -> Void)?
+    weak var delegateHandler: DelegateSectionHandler?
+
     var editSection: Section? {
         didSet {
             self.state = .editing
@@ -85,7 +92,7 @@ class CreatingSectionViewController: UIViewController {
             doneButton.isEnabled = true
         }
     }
-        
+    
     private func configureImageViewSelectedColor(_ color: UIColor) {
         backView.roundCorners(type: .all, radius: AppConstants.buttonRounding)
         backView.backgroundColor = color
@@ -161,12 +168,18 @@ class CreatingSectionViewController: UIViewController {
     
     @IBAction private func tapDone(_ sender: Any) {
         if let text = sectionTextField.text, !text.isEmpty,
-           let color = colorSet[selectedIndex].encode() {
-            let section = Section()
-            section.name = text
-            section.color = color
-            completionHandler?(section)
+           let color = selectedColor.encode() {
+            switch state {
+            case .create:
+                let section = Section()
+                section.name = text
+                section.color = color
+                delegateHandler?.createSection(section)
+            case .editing:
+                delegateHandler?.editingSection(name: text, color: color)
+            }
         }
+        delegateHandler?.closeVC()
     }
 }
 
