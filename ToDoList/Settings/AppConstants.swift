@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum Constants {
+enum AppConstants {
     
     //MARK: - Cell
     static let borderWith: CGFloat = 0.5
@@ -30,4 +30,8 @@ enum Constants {
     
     //MARK: - Section Color
     static let colorButtonRounding: CGFloat = 20
+    
+    //MARK: - Constants for Popup
+    static let roundPopup: CGFloat = 16
+    static let roundPopupButton: CGFloat = 15
 }

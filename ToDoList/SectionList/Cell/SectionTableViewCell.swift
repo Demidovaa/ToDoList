@@ -32,14 +32,14 @@ class SectionTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         
         countTaskLabel.textColor = .systemGray2
-        nameLabel.font = UIFont.systemFont(ofSize: Constants.fontTitle)
-        countTaskLabel.font = UIFont.systemFont(ofSize: Constants.fontSubtitle)
+        nameLabel.font = UIFont.systemFont(ofSize: AppConstants.fontTitle)
+        countTaskLabel.font = UIFont.systemFont(ofSize: AppConstants.fontSubtitle)
         
-        colorView.roundCorners(type: .custom, radius: Constants.cellFlagRounding)
-        backView.roundCorners(type: .all, radius: Constants.cellRounding)
+        colorView.roundCorners(type: .custom, radius: AppConstants.cellFlagRounding)
+        backView.roundCorners(type: .all, radius: AppConstants.cellRounding)
         backView.addBorder(borderColor: UIColor.separator.cgColor,
-                           borderWith: Constants.borderWith,
-                           borderCornerRadius: Constants.cellRounding)
+                           borderWith: AppConstants.borderWith,
+                           borderCornerRadius: AppConstants.cellRounding)
     }
     
     //MARK: - Configure cell
@@ -50,12 +50,12 @@ class SectionTableViewCell: UITableViewCell {
         colorView.backgroundColor = color
         backView.layer.masksToBounds = false
         backView.addShadow(color: .black,
-                           radius: Constants.cellShadowRounding,
-                           size: Constants.sizeShadow)
+                           radius: AppConstants.cellShadowRounding,
+                           size: AppConstants.sizeShadow)
         if color == .white {
             colorView.addBorder(borderColor: UIColor.separator.cgColor,
-                                borderWith: Constants.borderWith,
-                                borderCornerRadius: Constants.cellFlagRounding)
+                                borderWith: AppConstants.borderWith,
+                                borderCornerRadius: AppConstants.cellFlagRounding)
         }
     }
     

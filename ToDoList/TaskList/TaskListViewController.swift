@@ -54,9 +54,9 @@ class TaskListViewController: UIViewController {
     }
     
     private func configureAddButton() {
-        addButtonView.roundCorners(type: .all, radius: Constants.buttonRounding)
+        addButtonView.roundCorners(type: .all, radius: AppConstants.buttonRounding)
         addButtonView.layer.masksToBounds = false
-        addButtonView.addShadow(color: .black, size: Constants.sizeShadow)
+        addButtonView.addShadow(color: .black, size: AppConstants.sizeShadow)
         addButtonView.backgroundColor = viewColor
         addButton.tintColor = viewColor == .white ? .systemBlue : .white
     }
@@ -206,7 +206,7 @@ extension TaskListViewController:  UITableViewDragDelegate, UITableViewDropDeleg
 }
 
 extension TaskListViewController: DelegateTaskHandler {
-    func create(result: ResultTask) {
+    func create(result: TaskPopupViewController.ResultTask) {
         switch result {
         case .success(let task):
             model.add(task: task)
@@ -217,7 +217,7 @@ extension TaskListViewController: DelegateTaskHandler {
         }
     }
     
-    func update(result: ResultTask) {
+    func update(result: TaskPopupViewController.ResultTask) {
         guard let currentEditTaskIndex = currentEditTaskIndex else { return }
         switch result {
         case .success(let task):

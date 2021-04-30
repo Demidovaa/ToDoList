@@ -18,10 +18,10 @@ class ColorCollectionViewCell: UICollectionViewCell {
     }
 
     private func configureView() {
-        colorView.roundCorners(type: .all, radius: Constants.colorButtonRounding)
+        colorView.roundCorners(type: .all, radius: AppConstants.colorButtonRounding)
         colorView.addBorder(borderColor: UIColor.black.cgColor,
-                            borderWith: Constants.borderWith,
-                            borderCornerRadius: Constants.colorButtonRounding)
+                            borderWith: AppConstants.borderWith,
+                            borderCornerRadius: AppConstants.colorButtonRounding)
     }
     
     func configureItem(color: UIColor) {

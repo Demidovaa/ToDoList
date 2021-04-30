@@ -69,8 +69,8 @@ class TaskTableViewCell: UITableViewCell {
         
         if color == .white {
             rearView.addBorder(borderColor: UIColor.separator.cgColor,
-                               borderWith: Constants.borderWith,
-                               borderCornerRadius: Constants.cellFlagRounding)
+                               borderWith: AppConstants.borderWith,
+                               borderCornerRadius: AppConstants.cellFlagRounding)
         }
         completedHandler = tapHandler
     }
@@ -80,7 +80,7 @@ class TaskTableViewCell: UITableViewCell {
     private func configureView() {
         self.selectionStyle = .none
         
-        rearView.roundCorners(type: .all, radius: Constants.cellRounding)
+        rearView.roundCorners(type: .all, radius: AppConstants.cellRounding)
         rearView.backgroundColor = .systemYellow
         
         textTaskLabel.numberOfLines = 0

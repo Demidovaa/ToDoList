@@ -48,9 +48,9 @@ class SectionListViewController: UIViewController {
     private func configureView() {
         addSectionButton.tintColor = .white
         addButtonView.backgroundColor = .systemBlue
-        addButtonView.roundCorners(type: .all, radius: Constants.buttonRounding)
+        addButtonView.roundCorners(type: .all, radius: AppConstants.buttonRounding)
         addButtonView.layer.masksToBounds = false
-        addButtonView.addShadow(color: .black, size: Constants.sizeShadow)
+        addButtonView.addShadow(color: .black, size: AppConstants.sizeShadow)
     }
     
     private func registerCell() {

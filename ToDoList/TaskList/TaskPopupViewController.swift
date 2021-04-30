@@ -7,14 +7,9 @@
 
 import UIKit
 
-enum ResultTask {
-    case success(task: Task)
-    case failure
-}
-
 protocol DelegateTaskHandler: AnyObject {
-    func create(result: ResultTask)
-    func update(result: ResultTask)
+    func create(result: TaskPopupViewController.ResultTask)
+    func update(result: TaskPopupViewController.ResultTask)
     func closePopup()
 }
 
@@ -23,6 +18,11 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     private enum StatePopup {
         case create
         case editing
+    }
+    
+    enum ResultTask {
+        case success(task: Task)
+        case failure
     }
     
     //MARK: - IBOutlet
@@ -52,6 +52,7 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     //MARK: - Private Properties
     
     private var state: StatePopup = .create
+    private var keyboardHeight: CGFloat = 0
     
     //MARK: - Lifecycle
     
@@ -81,7 +82,7 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        sheetView.roundCorners(type: .top, radius: 16)
+        sheetView.roundCorners(type: .top, radius: AppConstants.roundPopup)
     }
     
     //MARK: - Private func
@@ -92,7 +93,7 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     
     private func configureView() {
         tapButton.backgroundColor = .clear
-        appendButton.roundCorners(type: .all, radius: 15)
+        appendButton.roundCorners(type: .all, radius: AppConstants.roundPopupButton)
         appendButton.backgroundColor = viewColor
         appendButton.tintColor = viewColor == .white ? .systemBlue : .white
     }
@@ -101,16 +102,15 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
         textView.text = task?.name
         textView.tintColor = viewColor == .white ? .systemBlue : viewColor
         textView.backgroundColor = .clear
-        textView.font = .systemFont(ofSize: 17)
+        textView.font = .systemFont(ofSize: AppConstants.fontTitle)
     }
     
     @objc
     private func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardHeight = keyboardFrame.cgRectValue.height
-            bottomConstaint.constant = keyboardHeight
+            keyboardHeight = keyboardFrame.cgRectValue.height
             UIView.animate(withDuration: 0.3) {
-                self.sheetView.isHidden = false
+                self.bottomConstaint.constant = self.keyboardHeight
                 self.view.layoutIfNeeded()
             }
         }
@@ -118,14 +118,16 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     
     @objc
     private func keyboardWillHide() {
-        bottomConstaint.constant = 0
         UIView.animate(withDuration: 0.3) {
-            self.sheetView.isHidden = true
+            self.bottomConstaint.constant = self.bottomConstaint.constant - self.keyboardHeight
             self.view.layoutIfNeeded()
         }
     }
     
     private func showActionSheet(controller: UIViewController) {
+        keyboardHeight += heightSheetView.constant
+        textView.resignFirstResponder()
+        
         let alert = UIAlertController(title: "Do you want continue editing?",
                                       message: nil,
                                       preferredStyle: .actionSheet)
@@ -174,7 +176,6 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     //MARK: - IBAction
     
     @IBAction private func tapScreen() {
-        textView.resignFirstResponder()
         switch state {
         case .editing:
             textView.text != task?.name ? showActionSheet(controller: self) : handleTask()
