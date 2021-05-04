@@ -10,19 +10,18 @@ import MobileCoreServices
 
 class TaskListViewController: UIViewController {
     
+    var model: TaskListModeling!
+    
     //MARK: - IBOutlet
     
     @IBOutlet private weak var tableView: UITableView!
-    
     @IBOutlet private weak var addButton: UIButton!
     @IBOutlet private weak var addButtonView: UIView!
     
     //MARK: - Properties
     
-    private var task: [TaskModel] = [] 
     private var currentEditTaskIndex: IndexPath?
-    
-    var viewColor: UIColor = .white
+    private var viewColor: UIColor = .white
     
     //MARK: - Lifecycle
     
@@ -36,36 +35,34 @@ class TaskListViewController: UIViewController {
         tableView.dragDelegate = self
         tableView.dropDelegate = self
         
-        tableView.backgroundColor = .clear
-        
         registerCell()
-        configureAddButton(backColor: viewColor)
+        setDataInSection()
+        configureAddButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configereTitle()
+        navigationController?.navigationBar.isHidden = false
     }
     
     //MARK: - Private Func
     
-    private func configereTitle() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .automatic
+    private func setDataInSection() {
+        guard let formatData = model.getInfoSection() else { return }
+        self.title = formatData.name
+        viewColor = formatData.color
     }
     
-    private func configureAddButton(backColor: UIColor = .gray) {
-        addButtonView.roundCorners(type: .all, radius: 30)
-        addButtonView.layer.borderWidth = 1
-        let blue: UIColor = .systemBlue
-        addButtonView.layer.borderColor = (backColor == .white ? blue : .white).cgColor
-        addButtonView.backgroundColor = backColor
-        addButton.tintColor = backColor == .white ? blue : .white
+    private func configureAddButton() {
+        addButtonView.roundCorners(type: .all, radius: AppConstants.buttonRounding)
+        addButtonView.layer.masksToBounds = false
+        addButtonView.addShadow(color: .black, size: AppConstants.sizeShadow)
+        addButtonView.backgroundColor = viewColor
+        addButton.tintColor = viewColor == .white ? .systemBlue : .white
     }
     
     private func registerCell() {
-        let nib = UINib(nibName: "TaskTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "TaskTableViewCell")
+        tableView.register(cellType: TaskTableViewCell.self)
     }
     
     private func presentingPopupFor(indexPath: IndexPath?) {
@@ -74,7 +71,7 @@ class TaskListViewController: UIViewController {
         popup.viewColor = viewColor
         
         if let index = indexPath?.row {
-            popup.task = task[index].textTask
+            popup.task = model.getTask(from: index)
         }
         
         view.alpha = 0.4
@@ -84,13 +81,14 @@ class TaskListViewController: UIViewController {
     }
     
     private func removeCell(for indexPath: IndexPath) {
-        self.task.remove(at: indexPath.row)
-        self.tableView.deleteRows(at: [indexPath], with: .left)
+        model.removeTask(from: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .left)
     }
     
     //MARK: - IBAction
     
     @IBAction private func tapPlus(_ sender: Any) {
+        navigationController?.view.alpha = 0.4
         presentingPopupFor(indexPath: nil)
     }
 }
@@ -98,54 +96,32 @@ class TaskListViewController: UIViewController {
 //MARK: - Extension
 
 extension TaskListViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return model.taskCount
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "Current task:" : "Completed task:"
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return task.filter { !$0.isCompleted }.count
-        } else {
-            return task.filter { $0.isCompleted }.count
-        }
+        return "Task:"
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
-        cell.configureCell(text: task[indexPath.row].textTask, color: viewColor)
-        cell.completedHandler = { [weak self] isCompleted in
-            guard let self = self else { return }
-            self.task[indexPath.row].isCompleted = isCompleted
-            self.tableView.reloadData()
+        let task = model.getTask(from: indexPath.row)
+        let cell = tableView.dequeueReusableCell(with: TaskTableViewCell.self, for: indexPath)
+        cell.configureCell(text: task.name, styleCell: .init(rawValue: task.isCompleted), color: viewColor) { [weak self] state in
+            self?.model.update(task: task, action: .changeState(isCompleted: state), from: indexPath.row)
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        var actions = [UIContextualAction]()
-        
         let delete = UIContextualAction(style: .normal, title: nil) { [weak self] (contextualAction, view, completion) in
             guard let self = self else { return }
             self.removeCell(for: indexPath)
             completion(true)
         }
-        let configureImage = UIImage.SymbolConfiguration(pointSize: 12.0, weight: .bold, scale: .large)
-        delete.image = UIImage(systemName: "trash",
-                               withConfiguration: configureImage)?.withTintColor(.white, renderingMode: .alwaysTemplate).addBackgroundCircle(.systemRed)
-        delete.backgroundColor = .systemBackground // Update color
         
-        actions.append(delete)
-        
-        let config = UISwipeActionsConfiguration(actions: actions)
-        config.performsFirstActionWithFullSwipe = false
-        
-        return config
+        return UISwipeActionsConfiguration.getDeleteActionConfiguration(deleteAction: delete)
     }
 }
 
@@ -160,7 +136,7 @@ extension TaskListViewController: UITableViewDelegate {
 
 extension TaskListViewController:  UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        let item = self.task[indexPath.row].textTask
+        let item = self.model.getTask(from: indexPath.row).name
         let itemProvider = NSItemProvider(object: item as NSString)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         dragItem.localObject = item
@@ -184,11 +160,10 @@ extension TaskListViewController:  UITableViewDragDelegate, UITableViewDropDeleg
                 dIndexPath.row = tableView.numberOfRows(inSection: 0) - 1
             }
             tableView.performBatchUpdates({
-                self.task.remove(at: sourceIndexPath.row)
-                self.task.insert(.init(textTask: item.dragItem.localObject as! String,
-                                       backgroundColor: .black,
-                                       isCompleted: false), at: dIndexPath.row)
-                
+                self.model.removeTask(from: sourceIndexPath.row)
+                let task: Task = .init() // BUG
+                task.name = item.dragItem.localObject as! String
+                self.model.update(task: task, action: .insertTask, from: dIndexPath.row)
                 tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
                 tableView.insertRows(at: [dIndexPath], with: .automatic)
             })
@@ -231,22 +206,22 @@ extension TaskListViewController:  UITableViewDragDelegate, UITableViewDropDeleg
 }
 
 extension TaskListViewController: DelegateTaskHandler {
-    func create(result: ResultTask) {
+    func create(result: TaskPopupViewController.ResultTask) {
         switch result {
-        case .success(let text):
-            task.append(.init(textTask: text, backgroundColor: .systemTeal, isCompleted: false))
-            tableView.insertRows(at: [IndexPath(row: self.task.count - 1, section: 0)],
+        case .success(let task):
+            model.add(task: task)
+            tableView.insertRows(at: [IndexPath(row: self.model.taskCount - 1, section: 0)],
                                  with: .automatic)
         case .failure:
             break
         }
     }
     
-    func update(result: ResultTask) {
+    func update(result: TaskPopupViewController.ResultTask) {
         guard let currentEditTaskIndex = currentEditTaskIndex else { return }
         switch result {
-        case .success(let text):
-            task[currentEditTaskIndex.row].textTask = text
+        case .success(let task):
+            model.update(task: task, action: .changeName, from: currentEditTaskIndex.row)
             tableView.reloadRows(at: [currentEditTaskIndex], with: .automatic)
         case .failure:
             removeCell(for: currentEditTaskIndex)
@@ -257,6 +232,7 @@ extension TaskListViewController: DelegateTaskHandler {
         self.dismiss(animated: true)
         UIView.animate(withDuration: 0.3) {
             self.view.alpha = 1.0
+            self.navigationController?.view.alpha = 1.0
         }
     }
 }

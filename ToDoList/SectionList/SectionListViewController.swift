@@ -15,43 +15,50 @@ class SectionListViewController: UIViewController {
     
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var addSectionButton: UIButton!
+    @IBOutlet private weak var addButtonView: UIView!
         
-    //MARK: - Lifecycle
-    
-    override func loadView() {
-        super.loadView()
-        model = SectionListModel(localStore: DatabaseService())
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        let localStore = DatabaseService()
+        model = SectionListModel(localStore: localStore)
         model.delegateUpdate = self
     }
     
+    //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         
         registerCell()
+        configureView()
         
         tableView.delegate = self
         tableView.dataSource = self
         
         model.fetchSectionList()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureTitle()
+        tableView.reloadData()
+        navigationController?.navigationBar.isHidden = true
     }
     
-    private func configureTitle() {
-        navigationController?.navigationBar.prefersLargeTitles = false
+    private func configureView() {
+        addSectionButton.tintColor = .white
+        addButtonView.backgroundColor = .systemBlue
+        addButtonView.roundCorners(type: .all, radius: AppConstants.buttonRounding)
+        addButtonView.layer.masksToBounds = false
+        addButtonView.addShadow(color: .black, size: AppConstants.sizeShadow)
     }
     
     private func registerCell() {
-        let nib = UINib(nibName: "SectionTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "SectionTableViewCell")
+        tableView.register(cellType: SectionTableViewCell.self)
     }
     
     private func showAlert(index: Int) {
-        guard let name = model.getFormat(at: index)?.name else { return }
+        guard let name = model.getSection(index: index)?.name else { return }
         let alert = UIAlertController(title: "Delete \(name)", message: "Are you sure you want to delete this section?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Yes",
@@ -69,12 +76,7 @@ class SectionListViewController: UIViewController {
     
     @IBAction private func tapPlus(_ sender: Any) {
         guard let creatingSection = storyboard?.instantiateViewController(withIdentifier: "CreatingSectionViewController") as? CreatingSectionViewController else { return }
-        
-        creatingSection.completionHandler = { [weak self] section in
-            guard let self = self else { return }
-            self.model.setSection(section: section)
-            self.dismiss(animated: true, completion: nil)
-        }
+        creatingSection.delegateHandler = self
         present(creatingSection, animated: true, completion: nil)
     }
 }
@@ -90,35 +92,46 @@ extension SectionListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SectionTableViewCell", for: indexPath) as? SectionTableViewCell
-        else { return .init() }
-        
-        if let formatData = model.getFormat(at: indexPath.row) {
-            cell.confugureCell(title: formatData.name, count: 0, color: formatData.color)
+        let cell = tableView.dequeueReusableCell(with: SectionTableViewCell.self, for: indexPath)
+        if let section = model.getSection(index: indexPath.row),
+           let countTask = model.getInfoTask(index: indexPath.row) {
+            
+            cell.confugureCell(title: section.name,
+                               count: countTask.all,
+                               completedTask: countTask.completed,
+                               color: UIColor.getColor(from: section.color) ?? .white)
+            
+            cell.completedHandler = { [weak self, indexPath] in
+                guard let creatingSection = self?.storyboard?.instantiateViewController(withIdentifier: "CreatingSectionViewController") as? CreatingSectionViewController else { return }
+                creatingSection.delegateHandler = self
+                creatingSection.editSection = self?.model.getSection(index: indexPath.row)
+                self?.model.selectedEditIndex = indexPath.row
+                self?.present(creatingSection, animated: true, completion: nil)
+            }
         }
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            showAlert(index: indexPath.row)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let delete = UIContextualAction(style: .normal, title: nil) { [weak self] (contextualAction, view, completion) in
+            guard let self = self else { return }
+            self.showAlert(index: indexPath.row)
+            completion(true)
         }
+        
+        return UISwipeActionsConfiguration.getDeleteActionConfiguration(deleteAction: delete)
     }
 }
 
-extension SectionListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-    
+extension SectionListViewController: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let taskList = storyboard?.instantiateViewController(withIdentifier: "TaskListViewController") as? TaskListViewController
-        else { return }
-        guard let formatData = model.getFormat(at: indexPath.row) else { return }
-        taskList.title = formatData.name
-        taskList.viewColor = formatData.color
+        guard let taskList = storyboard?.instantiateViewController(withIdentifier: "TaskListViewController") as? TaskListViewController else { return }
+        guard let section = self.model.getSection(index: indexPath.row) else { return }
+        let databaseService = DatabaseService()
+        taskList.model = TaskListModel(localStore: databaseService, section: section)
         navigationController?.pushViewController(taskList, animated: true)
     }
 }
@@ -126,5 +139,20 @@ extension SectionListViewController: UITableViewDelegate {
 extension SectionListViewController: DelegateUpdateViewSection {
     func updateSection() {
         tableView.reloadData()
+    }
+}
+
+extension SectionListViewController: DelegateSectionHandler {
+    func createSection(_ section: Section) {
+        model.setSection(section: section)
+    }
+    
+    func editingSection(name: String?, color: Data?) {
+        model.updateSection(name: name, color: color)
+        tableView.reloadData()
+    }
+    
+    func closeVC() {
+        self.dismiss(animated: true, completion: nil)
     }
 }

@@ -11,6 +11,7 @@ enum RoundCornersType {
     case all
     case top
     case left
+    case custom
 }
 
 extension UIView {    
@@ -26,6 +27,9 @@ extension UIView {
             
         case .top:
             self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            
+        case .custom:
+            self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         }
     }
     
@@ -36,7 +40,7 @@ extension UIView {
         layer.shadowRadius = radius
     }
     
-    func addBorder(borderColor:CGColor, borderWith:CGFloat, borderCornerRadius:CGFloat){
+    func addBorder(borderColor: CGColor, borderWith: CGFloat, borderCornerRadius: CGFloat) {
         layer.borderWidth = borderWith
         layer.borderColor = borderColor
         layer.cornerRadius = borderCornerRadius

@@ -8,11 +8,16 @@
 import UIKit
 
 class SectionTableViewCell: UITableViewCell {
-
-    @IBOutlet private weak var backImageView: UIView!
-    @IBOutlet private weak var sectionImageView: UIImageView!
+    
+    //MARK: - IBOutlet
+    
+    @IBOutlet private weak var colorView: UIView!
+    @IBOutlet private weak var backView: UIView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var countTaskLabel: UILabel!
+    @IBOutlet private weak var editButton: UIButton!
+    
+    var completedHandler: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,19 +25,41 @@ class SectionTableViewCell: UITableViewCell {
         configureContentView()
     }
     
+    //MARK: - Private Func
+    
     private func configureContentView() {
-        self.accessoryType = .disclosureIndicator
+        self.backgroundColor = .clear
+        self.selectionStyle = .none
         
-        backImageView.roundCorners(type: .all, radius: 12.5)
-        nameLabel.font = UIFont.systemFont(ofSize: 17)
         countTaskLabel.textColor = .systemGray2
-        countTaskLabel.font = UIFont.systemFont(ofSize: 15)
+        nameLabel.font = UIFont.systemFont(ofSize: AppConstants.fontTitle)
+        countTaskLabel.font = UIFont.systemFont(ofSize: AppConstants.fontSubtitle)
+        
+        colorView.roundCorners(type: .custom, radius: AppConstants.cellFlagRounding)
+        backView.roundCorners(type: .all, radius: AppConstants.cellRounding)
+        backView.addBorder(borderColor: UIColor.separator.cgColor,
+                           borderWith: AppConstants.borderWith,
+                           borderCornerRadius: AppConstants.cellRounding)
     }
     
-    func confugureCell(title: String, count: Int, color: UIColor) {
+    //MARK: - Configure cell
+    
+    func confugureCell(title: String, count: Int = 0, completedTask: Int = 0, color: UIColor) {
         nameLabel.text = title
-        countTaskLabel.text = "\(count)"
-        backImageView.backgroundColor = color
-        backImageView.tintColor = color == .white ? .systemBlue : .white
+        countTaskLabel.text = "\(completedTask)/\(count) completed"
+        colorView.backgroundColor = color
+        backView.layer.masksToBounds = false
+        backView.addShadow(color: .black,
+                           radius: AppConstants.cellShadowRounding,
+                           size: AppConstants.sizeShadow)
+        if color == .white {
+            colorView.addBorder(borderColor: UIColor.separator.cgColor,
+                                borderWith: AppConstants.borderWith,
+                                borderCornerRadius: AppConstants.cellFlagRounding)
+        }
+    }
+    
+    @IBAction func tapButton(_ sender: Any) {
+        completedHandler?()
     }
 }

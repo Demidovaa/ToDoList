@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OHo-FK-YQl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OHo-FK-YQl">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,40 +18,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="sDx-GW-SUf">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="sDx-GW-SUf">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYs-DD-90C">
-                                <rect key="frame" x="16" y="816" width="131" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lTm-QH-qtu">
+                                <rect key="frame" x="314" y="782" width="60" height="60"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uLk-Yj-SJ7">
-                                        <rect key="frame" x="0.0" y="0.0" width="131" height="30"/>
-                                        <state key="normal" title=" Add Section">
-                                            <color key="titleColor" systemColor="linkColor"/>
-                                            <imageReference key="image" image="plus.circle.fill" catalog="system" symbolScale="large"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LNf-Jw-D65">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <state key="normal">
+                                            <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
                                         </state>
                                         <connections>
-                                            <action selector="tapPlus:" destination="Bue-Gs-XB5" eventType="touchUpInside" id="F8L-bG-vKF"/>
-                                            <action selector="tapPlus:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KGd-Z5-md2"/>
+                                            <action selector="tapPlus:" destination="Bue-Gs-XB5" eventType="touchUpInside" id="NX5-xe-0vo"/>
+                                            <action selector="tapPlus:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wog-bc-k8c"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="uLk-Yj-SJ7" firstAttribute="top" secondItem="uYs-DD-90C" secondAttribute="top" id="6Ja-2Y-ofC"/>
-                                    <constraint firstItem="uLk-Yj-SJ7" firstAttribute="leading" secondItem="uYs-DD-90C" secondAttribute="leading" id="8ZL-Yf-oAC"/>
-                                    <constraint firstAttribute="width" constant="131" id="ANj-uP-Q23"/>
-                                    <constraint firstAttribute="trailing" secondItem="uLk-Yj-SJ7" secondAttribute="trailing" id="YSy-Jr-aRN"/>
-                                    <constraint firstAttribute="bottom" secondItem="uLk-Yj-SJ7" secondAttribute="bottom" id="cjb-d8-P8I"/>
-                                    <constraint firstAttribute="height" constant="30" id="e0v-QI-rsO"/>
+                                    <constraint firstAttribute="trailing" secondItem="LNf-Jw-D65" secondAttribute="trailing" id="4e4-rX-5nN"/>
+                                    <constraint firstItem="LNf-Jw-D65" firstAttribute="leading" secondItem="lTm-QH-qtu" secondAttribute="leading" id="93d-zP-IGW"/>
+                                    <constraint firstAttribute="width" constant="60" id="X3G-zd-QSy"/>
+                                    <constraint firstAttribute="bottom" secondItem="LNf-Jw-D65" secondAttribute="bottom" id="cJR-4B-8eo"/>
+                                    <constraint firstItem="LNf-Jw-D65" firstAttribute="top" secondItem="lTm-QH-qtu" secondAttribute="top" id="sAC-Tf-TXz"/>
+                                    <constraint firstAttribute="height" constant="60" id="vtx-Yt-aBd"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gKD-PQ-WhR"/>
-                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="uYs-DD-90C" firstAttribute="leading" secondItem="gKD-PQ-WhR" secondAttribute="leading" constant="16" id="QbV-jp-u3G"/>
-                            <constraint firstItem="gKD-PQ-WhR" firstAttribute="bottom" secondItem="uYs-DD-90C" secondAttribute="bottom" constant="16" id="gsf-Ys-6O5"/>
-                            <constraint firstItem="gKD-PQ-WhR" firstAttribute="bottom" secondItem="sDx-GW-SUf" secondAttribute="bottom" constant="-34" id="gu9-N9-pwu"/>
+                            <constraint firstItem="gKD-PQ-WhR" firstAttribute="bottom" secondItem="lTm-QH-qtu" secondAttribute="bottom" constant="20" id="Rk5-Gd-yPW"/>
+                            <constraint firstItem="gKD-PQ-WhR" firstAttribute="trailing" secondItem="lTm-QH-qtu" secondAttribute="trailing" constant="40" id="goo-5G-H83"/>
+                            <constraint firstAttribute="bottom" secondItem="sDx-GW-SUf" secondAttribute="bottom" id="gu9-N9-pwu"/>
                             <constraint firstItem="sDx-GW-SUf" firstAttribute="top" secondItem="gKD-PQ-WhR" secondAttribute="top" id="jJq-uw-kFq"/>
                             <constraint firstItem="sDx-GW-SUf" firstAttribute="leading" secondItem="gKD-PQ-WhR" secondAttribute="leading" id="pMD-UB-RHk"/>
                             <constraint firstItem="sDx-GW-SUf" firstAttribute="trailing" secondItem="gKD-PQ-WhR" secondAttribute="trailing" id="sR7-67-kwo"/>
@@ -59,7 +59,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="fO6-l0-QGY"/>
                     <connections>
-                        <outlet property="addSectionButton" destination="uLk-Yj-SJ7" id="4Uj-NV-Gsk"/>
+                        <outlet property="addButtonView" destination="lTm-QH-qtu" id="emI-VV-qca"/>
+                        <outlet property="addSectionButton" destination="LNf-Jw-D65" id="dnl-GI-InO"/>
                         <outlet property="tableView" destination="sDx-GW-SUf" id="ssh-vk-4FJ"/>
                     </connections>
                 </viewController>
@@ -370,15 +371,8 @@
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="location.north.fill" catalog="system" width="108" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="secondarySystemGroupedBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="separatorColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
