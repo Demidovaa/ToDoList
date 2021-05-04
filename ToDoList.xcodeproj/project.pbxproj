@@ -36,6 +36,12 @@
 		866705FB260A11430044F8AA /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866705FA260A11430044F8AA /* RadioButton.swift */; };
 		8672133026384CF800353B86 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8672132F26384CF800353B86 /* UITextView+Extension.swift */; };
 		8672133326385D5100353B86 /* TaskListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8672133226385D5100353B86 /* TaskListModel.swift */; };
+		86A4F66026419A860014C4B2 /* CalendarPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A4F65F26419A860014C4B2 /* CalendarPickerViewController.swift */; };
+		86A4F66326419AC90014C4B2 /* CalendarPickerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A4F66226419AC90014C4B2 /* CalendarPickerFooterView.swift */; };
+		86A4F66526419AE90014C4B2 /* CalendarPickerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A4F66426419AE90014C4B2 /* CalendarPickerHeaderView.swift */; };
+		86A4F66726419B070014C4B2 /* CalendarDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A4F66626419B070014C4B2 /* CalendarDateCollectionViewCell.swift */; };
+		86A4F66926419B740014C4B2 /* MonthMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A4F66826419B740014C4B2 /* MonthMetadata.swift */; };
+		86A4F66B26419BA80014C4B2 /* DayMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A4F66A26419BA80014C4B2 /* DayMetadata.swift */; };
 		86B705852602465F00008C23 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B705832602465F00008C23 /* TaskTableViewCell.swift */; };
 		86B705862602465F00008C23 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86B705842602465F00008C23 /* TaskTableViewCell.xib */; };
 		86B7058D26036BEE00008C23 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B7058C26036BEE00008C23 /* UIView+Extension.swift */; };
@@ -75,6 +81,12 @@
 		866705FA260A11430044F8AA /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		8672132F26384CF800353B86 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		8672133226385D5100353B86 /* TaskListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListModel.swift; sourceTree = "<group>"; };
+		86A4F65F26419A860014C4B2 /* CalendarPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPickerViewController.swift; sourceTree = "<group>"; };
+		86A4F66226419AC90014C4B2 /* CalendarPickerFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPickerFooterView.swift; sourceTree = "<group>"; };
+		86A4F66426419AE90014C4B2 /* CalendarPickerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPickerHeaderView.swift; sourceTree = "<group>"; };
+		86A4F66626419B070014C4B2 /* CalendarDateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCollectionViewCell.swift; sourceTree = "<group>"; };
+		86A4F66826419B740014C4B2 /* MonthMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthMetadata.swift; sourceTree = "<group>"; };
+		86A4F66A26419BA80014C4B2 /* DayMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayMetadata.swift; sourceTree = "<group>"; };
 		86B705832602465F00008C23 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		86B705842602465F00008C23 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		86B7058C26036BEE00008C23 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -170,6 +182,7 @@
 				86030C2F260D257C00F3CB1E /* CreatingSection */,
 				86030C05260C9C3400F3CB1E /* Service */,
 				866242842636E72400BF44B5 /* Settings */,
+				86A4F66126419AA10014C4B2 /* CalendarPicker */,
 				86B7058F26036C2200008C23 /* Extension */,
 				864B15BF26020DC60017E6C9 /* Assets.xcassets */,
 				864B15C126020DC60017E6C9 /* LaunchScreen.storyboard */,
@@ -191,8 +204,21 @@
 			isa = PBXGroup;
 			children = (
 				866705F42609F6BE0044F8AA /* DataModel.swift */,
+				86A4F66826419B740014C4B2 /* MonthMetadata.swift */,
+				86A4F66A26419BA80014C4B2 /* DayMetadata.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		86A4F66126419AA10014C4B2 /* CalendarPicker */ = {
+			isa = PBXGroup;
+			children = (
+				86A4F65F26419A860014C4B2 /* CalendarPickerViewController.swift */,
+				86A4F66226419AC90014C4B2 /* CalendarPickerFooterView.swift */,
+				86A4F66426419AE90014C4B2 /* CalendarPickerHeaderView.swift */,
+				86A4F66626419B070014C4B2 /* CalendarDateCollectionViewCell.swift */,
+			);
+			path = CalendarPicker;
 			sourceTree = "<group>";
 		};
 		86B705802602430300008C23 /* TaskList */ = {
@@ -367,18 +393,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				866242B126381BFC00BF44B5 /* TextStyle.swift in Sources */,
+				86A4F66026419A860014C4B2 /* CalendarPickerViewController.swift in Sources */,
+				86A4F66B26419BA80014C4B2 /* DayMetadata.swift in Sources */,
 				861789FD2615E4FC0082B084 /* ColorCollectionViewCell.swift in Sources */,
 				866705FB260A11430044F8AA /* RadioButton.swift in Sources */,
 				866242A62637081A00BF44B5 /* UITableView+Extension.swift in Sources */,
 				86B705852602465F00008C23 /* TaskTableViewCell.swift in Sources */,
 				866705EF2608C3100044F8AA /* UIImage+Extension.swift in Sources */,
+				86A4F66326419AC90014C4B2 /* CalendarPickerFooterView.swift in Sources */,
 				864B15BB26020DC30017E6C9 /* TaskListViewController.swift in Sources */,
 				86B705AA2603A21200008C23 /* TaskPopupViewController.swift in Sources */,
 				8672133026384CF800353B86 /* UITextView+Extension.swift in Sources */,
 				866242872636EC2700BF44B5 /* UISwipeActionsConfiguration+Extension.swift in Sources */,
 				8672133326385D5100353B86 /* TaskListModel.swift in Sources */,
+				86A4F66526419AE90014C4B2 /* CalendarPickerHeaderView.swift in Sources */,
 				866242AB26381A2D00BF44B5 /* NSStringAttributes+Extension.swift in Sources */,
+				86A4F66926419B740014C4B2 /* MonthMetadata.swift in Sources */,
 				86030C51260DE3F800F3CB1E /* UserDefaults+Extension.swift in Sources */,
+				86A4F66726419B070014C4B2 /* CalendarDateCollectionViewCell.swift in Sources */,
 				86030C1B260CA98C00F3CB1E /* SectionListViewController.swift in Sources */,
 				861789DA2614D9090082B084 /* UIColor+Extension.swift in Sources */,
 				866242AE26381A5000BF44B5 /* String+Extension.swift in Sources */,

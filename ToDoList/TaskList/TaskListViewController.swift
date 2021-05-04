@@ -107,7 +107,7 @@ extension TaskListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let task = model.getTask(from: indexPath.row)
         let cell = tableView.dequeueReusableCell(with: TaskTableViewCell.self, for: indexPath)
-        cell.configureCell(text: task.name, styleCell: .init(rawValue: task.isCompleted), color: viewColor) { [weak self] state in
+        cell.configureCell(text: task.name, date: task.dateCompleted, styleCell: .init(rawValue: task.isCompleted), color: viewColor) { [weak self] state in
             self?.model.update(task: task, action: .changeState(isCompleted: state), from: indexPath.row)
         }
         return cell
@@ -222,6 +222,7 @@ extension TaskListViewController: DelegateTaskHandler {
         switch result {
         case .success(let task):
             model.update(task: task, action: .changeName, from: currentEditTaskIndex.row)
+            model.update(task: task, action: .changeDateCompleted, from: currentEditTaskIndex.row)
             tableView.reloadRows(at: [currentEditTaskIndex], with: .automatic)
         case .failure:
             removeCell(for: currentEditTaskIndex)

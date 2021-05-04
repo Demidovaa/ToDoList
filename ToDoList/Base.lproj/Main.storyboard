@@ -311,12 +311,27 @@
                                                     <action selector="addTask" destination="wnd-qE-eaH" eventType="touchUpInside" id="dDX-rM-Yce"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pwf-5R-VfJ">
+                                                <rect key="frame" x="16" y="8.5" width="30" height="29"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="7el-N2-CQr"/>
+                                                    <constraint firstAttribute="height" constant="30" id="ac4-Qy-Cfq"/>
+                                                </constraints>
+                                                <state key="normal">
+                                                    <imageReference key="backgroundImage" image="calendar.circle" catalog="system" symbolScale="medium" renderingMode="original"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="openPicker:" destination="wnd-qE-eaH" eventType="touchUpInside" id="ENd-d9-ntU"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="JpG-9i-z2x"/>
+                                            <constraint firstItem="Pwf-5R-VfJ" firstAttribute="top" secondItem="EqE-TF-eR5" secondAttribute="top" constant="8" id="vnx-Te-HOY"/>
                                             <constraint firstItem="qGf-aI-nmF" firstAttribute="top" secondItem="EqE-TF-eR5" secondAttribute="top" constant="8" id="x9t-Uh-JiE"/>
                                             <constraint firstAttribute="trailing" secondItem="qGf-aI-nmF" secondAttribute="trailing" constant="16" id="yPv-pj-Q4U"/>
+                                            <constraint firstItem="Pwf-5R-VfJ" firstAttribute="leading" secondItem="EqE-TF-eR5" secondAttribute="leading" constant="16" id="zRm-JF-h48"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -356,6 +371,7 @@
                         <outlet property="actionView" destination="EqE-TF-eR5" id="qjc-fl-aQF"/>
                         <outlet property="appendButton" destination="qGf-aI-nmF" id="4Qd-DK-uTK"/>
                         <outlet property="bottomConstaint" destination="Kpf-GY-Yx5" id="wuu-aH-jja"/>
+                        <outlet property="datePickerButton" destination="Pwf-5R-VfJ" id="SB8-Tk-hGR"/>
                         <outlet property="heightSheetView" destination="iXz-bJ-Lh8" id="grw-uH-hKE"/>
                         <outlet property="sheetView" destination="LBI-BC-saA" id="FIa-JJ-meZ"/>
                         <outlet property="tapButton" destination="Cgl-OK-JeN" id="22I-0G-PAv"/>
@@ -368,6 +384,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="calendar.circle" catalog="system" width="128" height="121"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="location.north.fill" catalog="system" width="108" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>

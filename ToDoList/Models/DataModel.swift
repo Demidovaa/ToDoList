@@ -12,6 +12,7 @@ class Task: Object {
     @objc dynamic var name = ""
     @objc dynamic var date = NSDate()
     @objc dynamic var isCompleted: Bool = false
+    @objc dynamic var dateCompleted: Date?
 }
 
 class Section: Object {

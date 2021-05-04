@@ -25,6 +25,9 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
         case failure
     }
     
+    let datePicker = UIDatePicker()
+    private var date: Date?
+    
     //MARK: - IBOutlet
     
     @IBOutlet private weak var tapButton: UIButton!
@@ -36,6 +39,8 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet private weak var heightSheetView: NSLayoutConstraint!
     @IBOutlet private weak var bottomConstaint: NSLayoutConstraint!
+    
+    @IBOutlet private weak var datePickerButton: UIButton!
     
     //MARK: - Properties
     
@@ -71,7 +76,6 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
                                                selector: #selector(keyboardWillHide),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -152,9 +156,22 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     private func handleTask() {
         let result: ResultTask
         if validateInput(textView: textView) {
-            let task = Task()
-            task.name = textView.text
-            result = .success(task: task)
+            let newTask = Task()
+            newTask.name = textView.text
+            
+            if let date = date,
+               let oldDate = task?.dateCompleted,
+               oldDate != date {
+                newTask.dateCompleted = date
+                
+            } else if let date = date {
+                newTask.dateCompleted = date
+                
+            } else if let oldDate = task?.dateCompleted {
+                newTask.dateCompleted = oldDate
+            }
+            
+            result = .success(task: newTask)
         } else {
             result = .failure
         }
@@ -172,7 +189,7 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     private func validateInput(textView: UITextView) -> Bool {
         return (!textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
     }
-    
+        
     //MARK: - IBAction
     
     @IBAction private func tapScreen() {
@@ -186,5 +203,16 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     
     @IBAction private func addTask() {
         handleTask()
+    }
+    
+    @IBAction func openPicker(_ sender: Any) {
+        let pickerController = CalendarPickerViewController(
+            baseDate: Date(),
+            selectedDateChanged: { [weak self] date in
+                guard let self = self else { return }
+                self.date = date
+            })
+        
+        present(pickerController, animated: true, completion: nil)
     }
 }

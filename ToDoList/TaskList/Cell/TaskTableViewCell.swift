@@ -14,8 +14,15 @@ class TaskTableViewCell: UITableViewCell {
     @IBOutlet private weak var textTaskLabel: UILabel!
     @IBOutlet private weak var rearView: UIView!
     @IBOutlet private weak var statusTaskButton: UIButton!
+    @IBOutlet private weak var dateCompletedLabel: UILabel!
     
     //MARK: - Properties
+    
+    private lazy var dateFormatter: DateFormatter = {
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateStyle = .long
+      return dateFormatter
+    }()
     
     private var completedHandler: ((Bool) -> Void)?
     
@@ -59,10 +66,17 @@ class TaskTableViewCell: UITableViewCell {
         }
     }
     
-    func configureCell(text: String, styleCell: StyleCell, color: UIColor = .white, tapHandler: ((Bool) -> Void)? = nil) {
+    func configureCell(text: String, date: Date?, styleCell: StyleCell, color: UIColor = .white, tapHandler: ((Bool) -> Void)? = nil) {
         let config = styleCell.config
         textTaskLabel.attributedText = text.styled(config.textStyle)
         statusTaskButton.setImage(UIImage(systemName: styleCell.config.isCompleted ? "checkmark" : "circle" ), for: .normal)
+        
+        if let date = date {
+            dateCompletedLabel.isHidden = false
+            dateCompletedLabel.text = "Complete by " + dateFormatter.string(from: date)
+        } else {
+            dateCompletedLabel.isHidden = true
+        }
         
         rearView.backgroundColor = color
         statusTaskButton.tintColor = color == .white ? .systemBlue : .white
@@ -71,6 +85,7 @@ class TaskTableViewCell: UITableViewCell {
             rearView.addBorder(borderColor: UIColor.separator.cgColor,
                                borderWith: AppConstants.borderWith,
                                borderCornerRadius: AppConstants.cellFlagRounding)
+            dateCompletedLabel.textColor = .separator
         }
         completedHandler = tapHandler
     }
@@ -85,6 +100,8 @@ class TaskTableViewCell: UITableViewCell {
         
         textTaskLabel.numberOfLines = 0
         textTaskLabel.lineBreakMode = .byWordWrapping
+        
+        dateCompletedLabel.textColor = .white
     }
     
     @IBAction private func tapButton(_ sender: Any) {

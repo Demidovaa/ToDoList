@@ -22,6 +22,7 @@ class TaskListModel: TaskListModeling {
     
     enum Modify {
         case changeName
+        case changeDateCompleted
         case changeState(isCompleted: Bool)
         case insertTask
     }
@@ -65,6 +66,8 @@ class TaskListModel: TaskListModeling {
                 self?.section.tasks[index].isCompleted = isCompleted
             case .insertTask:
                 self?.section.tasks.insert(task, at: index)
+            case .changeDateCompleted:
+                self?.section.tasks[index].dateCompleted = task.dateCompleted
             }
         }
     }
