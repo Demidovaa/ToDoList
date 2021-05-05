@@ -34,13 +34,19 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     @IBOutlet private weak var sheetView: UIView!
     @IBOutlet private weak var textView: UITextView!
     
-    @IBOutlet private weak var actionView: UIView!
-    @IBOutlet private weak var appendButton: UIButton!
-    
     @IBOutlet private weak var heightSheetView: NSLayoutConstraint!
     @IBOutlet private weak var bottomConstaint: NSLayoutConstraint!
     
+    //MARK: - IBOutlet for action
+    
+    @IBOutlet private weak var actionView: UIView!
+    
     @IBOutlet private weak var datePickerButton: UIButton!
+    @IBOutlet private weak var dateView: UIView!
+    @IBOutlet private weak var deleteDateButton: UIButton!
+    @IBOutlet private weak var dateLabel: UILabel!
+    
+    @IBOutlet private weak var appendButton: UIButton!
     
     //MARK: - Properties
     
@@ -59,10 +65,17 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     private var state: StatePopup = .create
     private var keyboardHeight: CGFloat = 0
     
+    private lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        return dateFormatter
+    }()
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        date = task?.dateCompleted
         configureView()
         configureTextView()
         textView.delegate = self
@@ -97,6 +110,22 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     
     private func configureView() {
         tapButton.backgroundColor = .clear
+        
+        dateView.backgroundColor = viewColor
+        dateView.roundCorners(type: .all, radius: AppConstants.roundPopupButton)
+        if let date = task?.dateCompleted {
+            dateView.isHidden = false
+            dateLabel.text = dateFormatter.string(from: date)
+        } else {
+            dateView.isHidden = true
+        }
+        
+        if viewColor == .white {
+            dateView.addBorder(borderColor: UIColor.separator.cgColor,
+                               borderWith: AppConstants.borderWith,
+                               borderCornerRadius: AppConstants.roundPopupButton)
+        }
+        
         appendButton.roundCorners(type: .all, radius: AppConstants.roundPopupButton)
         appendButton.backgroundColor = viewColor
         appendButton.tintColor = viewColor == .white ? .systemBlue : .white
@@ -159,9 +188,12 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
             let newTask = Task()
             newTask.name = textView.text
             
-            if let date = date,
-               let oldDate = task?.dateCompleted,
-               oldDate != date {
+            if date == nil && state == .editing {
+                newTask.dateCompleted = nil
+                
+            } else if let date = date,
+                      let oldDate = task?.dateCompleted,
+                      oldDate != date {
                 newTask.dateCompleted = date
                 
             } else if let date = date {
@@ -189,13 +221,13 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
     private func validateInput(textView: UITextView) -> Bool {
         return (!textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
     }
-        
+    
     //MARK: - IBAction
     
     @IBAction private func tapScreen() {
         switch state {
         case .editing:
-            textView.text != task?.name ? showActionSheet(controller: self) : handleTask()
+            textView.text != task?.name || date != task?.dateCompleted ? showActionSheet(controller: self) : handleTask()
         case .create:
             !textView.text.isEmpty ? showActionSheet(controller: self) : handleTask()
         }
@@ -205,14 +237,24 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
         handleTask()
     }
     
-    @IBAction func openPicker(_ sender: Any) {
+    @IBAction private func openPicker(_ sender: Any) {
+        guard let date = state == .editing && date != nil ? task?.dateCompleted : Date() else { return }
         let pickerController = CalendarPickerViewController(
-            baseDate: Date(),
+            baseDate: date,
             selectedDateChanged: { [weak self] date in
                 guard let self = self else { return }
                 self.date = date
+                self.dateView.isHidden = false
+                self.dateLabel.text = self.dateFormatter.string(from: date)
             })
         
-        present(pickerController, animated: true, completion: nil)
+        present(pickerController, animated: true)
+    }
+    
+    @IBAction private func tapDeleteDate(_ sender: Any) {
+        date = nil
+        UIView.animate(withDuration: 0.3) {
+            self.dateView.isHidden = true
+        }
     }
 }

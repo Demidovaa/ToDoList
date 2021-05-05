@@ -84,7 +84,7 @@ class TaskTableViewCell: UITableViewCell {
         if color == .white {
             rearView.addBorder(borderColor: UIColor.separator.cgColor,
                                borderWith: AppConstants.borderWith,
-                               borderCornerRadius: AppConstants.cellFlagRounding)
+                               borderCornerRadius: AppConstants.cellRounding)
             dateCompletedLabel.textColor = .separator
         }
         completedHandler = tapHandler

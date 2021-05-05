@@ -18,16 +18,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HTQ-pX-z75">
-                        <rect key="frame" x="16" y="10" width="288" height="60"/>
+                        <rect key="frame" x="16" y="10" width="288" height="60.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uhg-d0-9nH">
-                                <rect key="frame" x="20" y="16" width="253" height="20.5"/>
+                                <rect key="frame" x="20" y="17" width="253" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="SKn-Aw-LVR"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ely-KC-x3L">
-                                <rect key="frame" x="20" y="43" width="26.5" height="12"/>
+                                <rect key="frame" x="20" y="43.5" width="26.5" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -53,13 +56,13 @@
                             <constraint firstItem="Ely-KC-x3L" firstAttribute="leading" secondItem="HTQ-pX-z75" secondAttribute="leading" constant="20" symbolic="YES" id="Hs8-md-Uls"/>
                             <constraint firstItem="Uhg-d0-9nH" firstAttribute="leading" secondItem="HTQ-pX-z75" secondAttribute="leading" constant="20" symbolic="YES" id="MhA-lc-F2P"/>
                             <constraint firstItem="Kiz-9Z-fag" firstAttribute="top" secondItem="HTQ-pX-z75" secondAttribute="top" constant="19" id="TH1-ax-ekN"/>
-                            <constraint firstItem="Uhg-d0-9nH" firstAttribute="top" secondItem="HTQ-pX-z75" secondAttribute="top" constant="16" id="nQX-cR-Fnr"/>
+                            <constraint firstItem="Uhg-d0-9nH" firstAttribute="top" secondItem="HTQ-pX-z75" secondAttribute="top" constant="17" id="nQX-cR-Fnr"/>
                             <constraint firstAttribute="trailing" secondItem="Kiz-9Z-fag" secondAttribute="trailing" constant="15" id="pt0-2v-Ii2"/>
                             <constraint firstAttribute="trailing" secondItem="Uhg-d0-9nH" secondAttribute="trailing" constant="15" id="sRt-h9-U0r"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ze-PN-oPw">
-                        <rect key="frame" x="16" y="10" width="15" height="61"/>
+                        <rect key="frame" x="16" y="10" width="15" height="61.5"/>
                         <color key="backgroundColor" systemColor="systemRedColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="0HI-gg-wfT"/>

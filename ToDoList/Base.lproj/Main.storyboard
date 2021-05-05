@@ -300,6 +300,55 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EqE-TF-eR5">
                                         <rect key="frame" x="0.0" y="70" width="414" height="50"/>
                                         <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3fx-ye-37e">
+                                                <rect key="frame" x="16" y="8" width="115" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pwf-5R-VfJ">
+                                                        <rect key="frame" x="0.0" y="0.5" width="30" height="29"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="30" id="7el-N2-CQr"/>
+                                                            <constraint firstAttribute="height" constant="30" id="ac4-Qy-Cfq"/>
+                                                        </constraints>
+                                                        <state key="normal">
+                                                            <imageReference key="backgroundImage" image="calendar.circle" catalog="system" symbolScale="medium" renderingMode="original"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="openPicker:" destination="wnd-qE-eaH" eventType="touchUpInside" id="ENd-d9-ntU"/>
+                                                        </connections>
+                                                    </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZM-dJ-0ki">
+                                                        <rect key="frame" x="40" y="0.0" width="75" height="30"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdl-i6-8vF">
+                                                                <rect key="frame" x="10" y="5" width="35" height="20"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2q1-kz-rOk">
+                                                                <rect key="frame" x="50" y="5" width="20" height="20"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="20" id="B3r-Jo-g40"/>
+                                                                    <constraint firstAttribute="height" constant="20" id="nqx-eV-KVU"/>
+                                                                </constraints>
+                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" image="xmark.circle.fill" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="tapDeleteDate:" destination="wnd-qE-eaH" eventType="touchUpInside" id="09b-nw-WqP"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="2q1-kz-rOk" firstAttribute="leading" secondItem="mdl-i6-8vF" secondAttribute="trailing" constant="5" id="MlU-hU-gqM"/>
+                                                            <constraint firstItem="mdl-i6-8vF" firstAttribute="leading" secondItem="cZM-dJ-0ki" secondAttribute="leading" constant="10" id="NMS-0e-CpM"/>
+                                                            <constraint firstAttribute="bottom" secondItem="2q1-kz-rOk" secondAttribute="bottom" constant="5" id="PLH-DR-zDl"/>
+                                                            <constraint firstAttribute="trailing" secondItem="2q1-kz-rOk" secondAttribute="trailing" constant="5" id="S0l-Ur-flw"/>
+                                                            <constraint firstAttribute="bottom" secondItem="mdl-i6-8vF" secondAttribute="bottom" constant="5" id="grp-Kl-1L8"/>
+                                                            <constraint firstItem="mdl-i6-8vF" firstAttribute="top" secondItem="cZM-dJ-0ki" secondAttribute="top" constant="5" id="xVO-s8-9CJ"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qGf-aI-nmF">
                                                 <rect key="frame" x="368" y="8" width="30" height="30"/>
                                                 <constraints>
@@ -311,27 +360,15 @@
                                                     <action selector="addTask" destination="wnd-qE-eaH" eventType="touchUpInside" id="dDX-rM-Yce"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pwf-5R-VfJ">
-                                                <rect key="frame" x="16" y="8.5" width="30" height="29"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="30" id="7el-N2-CQr"/>
-                                                    <constraint firstAttribute="height" constant="30" id="ac4-Qy-Cfq"/>
-                                                </constraints>
-                                                <state key="normal">
-                                                    <imageReference key="backgroundImage" image="calendar.circle" catalog="system" symbolScale="medium" renderingMode="original"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="openPicker:" destination="wnd-qE-eaH" eventType="touchUpInside" id="ENd-d9-ntU"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="JpG-9i-z2x"/>
-                                            <constraint firstItem="Pwf-5R-VfJ" firstAttribute="top" secondItem="EqE-TF-eR5" secondAttribute="top" constant="8" id="vnx-Te-HOY"/>
+                                            <constraint firstAttribute="bottom" secondItem="3fx-ye-37e" secondAttribute="bottom" constant="12" id="Uws-jF-6bt"/>
+                                            <constraint firstItem="3fx-ye-37e" firstAttribute="leading" secondItem="EqE-TF-eR5" secondAttribute="leading" constant="16" id="Ybo-rh-b1G"/>
                                             <constraint firstItem="qGf-aI-nmF" firstAttribute="top" secondItem="EqE-TF-eR5" secondAttribute="top" constant="8" id="x9t-Uh-JiE"/>
                                             <constraint firstAttribute="trailing" secondItem="qGf-aI-nmF" secondAttribute="trailing" constant="16" id="yPv-pj-Q4U"/>
-                                            <constraint firstItem="Pwf-5R-VfJ" firstAttribute="leading" secondItem="EqE-TF-eR5" secondAttribute="leading" constant="16" id="zRm-JF-h48"/>
+                                            <constraint firstItem="3fx-ye-37e" firstAttribute="top" secondItem="EqE-TF-eR5" secondAttribute="top" constant="8" id="zDZ-XY-g32"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -371,7 +408,10 @@
                         <outlet property="actionView" destination="EqE-TF-eR5" id="qjc-fl-aQF"/>
                         <outlet property="appendButton" destination="qGf-aI-nmF" id="4Qd-DK-uTK"/>
                         <outlet property="bottomConstaint" destination="Kpf-GY-Yx5" id="wuu-aH-jja"/>
+                        <outlet property="dateLabel" destination="mdl-i6-8vF" id="cQK-Kc-Myb"/>
                         <outlet property="datePickerButton" destination="Pwf-5R-VfJ" id="SB8-Tk-hGR"/>
+                        <outlet property="dateView" destination="cZM-dJ-0ki" id="fgV-YU-HpU"/>
+                        <outlet property="deleteDateButton" destination="2q1-kz-rOk" id="ay6-w0-leX"/>
                         <outlet property="heightSheetView" destination="iXz-bJ-Lh8" id="grw-uH-hKE"/>
                         <outlet property="sheetView" destination="LBI-BC-saA" id="FIa-JJ-meZ"/>
                         <outlet property="tapButton" destination="Cgl-OK-JeN" id="22I-0G-PAv"/>
@@ -380,7 +420,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="86I-Ms-oUx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1429" y="761"/>
+            <point key="canvasLocation" x="1428.985507246377" y="760.71428571428567"/>
         </scene>
     </scenes>
     <resources>
@@ -388,6 +428,7 @@
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="location.north.fill" catalog="system" width="108" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
