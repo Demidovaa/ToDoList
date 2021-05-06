@@ -20,14 +20,14 @@ class TaskListViewController: UIViewController {
     
     //MARK: - Properties
     
+    private var infoView = InformativeCustomView(frame: CGRect.zero)
     private var currentEditTaskIndex: IndexPath?
     private var viewColor: UIColor = .white
-    private var infoView = InformativeCustomView(frame: .zero)
     
     private var countTask: Int = 0 {
         didSet {
             UIView.animate(withDuration: 0.5) {
-                self.infoView.isHidden = self.countTask == 0 ? false : true
+                self.infoView.isHidden = !(self.countTask == 0)
             }
         }
     }
@@ -36,7 +36,7 @@ class TaskListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -47,6 +47,22 @@ class TaskListViewController: UIViewController {
         registerCell()
         setDataInSection()
         configureAddButton()
+        configureCustomView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+        countTask = model.taskCount
+    }
+    
+    //MARK: - Private Func
+    
+    private func configureCustomView() {
+        infoView.completionHandler = { [weak self] button in
+            guard let self = self else { return }
+            self.presentPopover(button)
+        }
         
         self.view.insertSubview(infoView, belowSubview: addButtonView)
         NSLayoutConstraint.activate([
@@ -56,14 +72,6 @@ class TaskListViewController: UIViewController {
             infoView.widthAnchor.constraint(equalTo: self.view.widthAnchor)
         ])
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
-        countTask = model.taskCount
-    }
-    
-    //MARK: - Private Func
     
     private func setDataInSection() {
         guard let formatData = model.getInfoSection() else { return }
@@ -104,6 +112,19 @@ class TaskListViewController: UIViewController {
         tableView.deleteRows(at: [indexPath], with: .left)
     }
     
+    private func presentPopover(_ view: UIView) {
+        guard let popover = storyboard?.instantiateViewController(withIdentifier: "Popover") as? PopoverViewController else { return }
+        popover.modalPresentationStyle = .popover
+        
+        let popoverController = popover.popoverPresentationController
+        popoverController?.delegate = self
+        popoverController?.sourceView = view
+        
+        popover.preferredContentSize = CGSize(width: 250, height: 132)
+        
+        present(popover, animated: true, completion: nil)
+    }
+    
     //MARK: - IBAction
     
     @IBAction private func tapPlus(_ sender: Any) {
@@ -113,6 +134,14 @@ class TaskListViewController: UIViewController {
 }
 
 //MARK: - Extension
+
+extension TaskListViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+}
+
+//MARK: - TableView
 
 extension TaskListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -223,6 +252,8 @@ extension TaskListViewController:  UITableViewDragDelegate, UITableViewDropDeleg
         }
     }
 }
+
+//MARK: - Delegate
 
 extension TaskListViewController: DelegateTaskHandler {
     func create(result: TaskPopupViewController.ResultTask) {

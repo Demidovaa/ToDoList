@@ -34,6 +34,9 @@
 		866705EF2608C3100044F8AA /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866705EE2608C3100044F8AA /* UIImage+Extension.swift */; };
 		866705F52609F6BE0044F8AA /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866705F42609F6BE0044F8AA /* DataModel.swift */; };
 		866705FB260A11430044F8AA /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866705FA260A11430044F8AA /* RadioButton.swift */; };
+		86694AC22643FEAD0040347D /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86694AC12643FEAD0040347D /* PopoverViewController.swift */; };
+		86694AC5264430770040347D /* PopoverTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86694AC3264430770040347D /* PopoverTableViewCell.swift */; };
+		86694AC6264430770040347D /* PopoverTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86694AC4264430770040347D /* PopoverTableViewCell.xib */; };
 		8672133026384CF800353B86 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8672132F26384CF800353B86 /* UITextView+Extension.swift */; };
 		8672133326385D5100353B86 /* TaskListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8672133226385D5100353B86 /* TaskListModel.swift */; };
 		86A4F66026419A860014C4B2 /* CalendarPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A4F65F26419A860014C4B2 /* CalendarPickerViewController.swift */; };
@@ -80,6 +83,9 @@
 		866705EE2608C3100044F8AA /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		866705F42609F6BE0044F8AA /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		866705FA260A11430044F8AA /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		86694AC12643FEAD0040347D /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		86694AC3264430770040347D /* PopoverTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverTableViewCell.swift; sourceTree = "<group>"; };
+		86694AC4264430770040347D /* PopoverTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopoverTableViewCell.xib; sourceTree = "<group>"; };
 		8672132F26384CF800353B86 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		8672133226385D5100353B86 /* TaskListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListModel.swift; sourceTree = "<group>"; };
 		86A4F65F26419A860014C4B2 /* CalendarPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPickerViewController.swift; sourceTree = "<group>"; };
@@ -213,6 +219,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		86694AC7264430810040347D /* Popover Cell */ = {
+			isa = PBXGroup;
+			children = (
+				86694AC3264430770040347D /* PopoverTableViewCell.swift */,
+				86694AC4264430770040347D /* PopoverTableViewCell.xib */,
+			);
+			path = "Popover Cell";
+			sourceTree = "<group>";
+		};
 		86A4F66126419AA10014C4B2 /* CalendarPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +246,8 @@
 				864B15BA26020DC30017E6C9 /* TaskListViewController.swift */,
 				86B705A92603A21200008C23 /* TaskPopupViewController.swift */,
 				86B705882602466900008C23 /* Cell */,
+				86694AC7264430810040347D /* Popover Cell */,
+				86694AC12643FEAD0040347D /* PopoverViewController.swift */,
 			);
 			path = TaskList;
 			sourceTree = "<group>";
@@ -341,6 +358,7 @@
 				86B705862602465F00008C23 /* TaskTableViewCell.xib in Resources */,
 				864B15C326020DC60017E6C9 /* LaunchScreen.storyboard in Resources */,
 				864B15C026020DC60017E6C9 /* Assets.xcassets in Resources */,
+				86694AC6264430770040347D /* PopoverTableViewCell.xib in Resources */,
 				861789FE2615E4FC0082B084 /* ColorCollectionViewCell.xib in Resources */,
 				864B15BE26020DC30017E6C9 /* Main.storyboard in Resources */,
 			);
@@ -421,12 +439,14 @@
 				864B15B726020DC30017E6C9 /* AppDelegate.swift in Sources */,
 				866242A32637075F00BF44B5 /* ClassNameExtension.swift in Sources */,
 				86030C03260C9C2F00F3CB1E /* DatabaseService.swift in Sources */,
+				86694AC22643FEAD0040347D /* PopoverViewController.swift in Sources */,
 				86030C2A260D257100F3CB1E /* CreatingSectionViewController.swift in Sources */,
 				86B7058D26036BEE00008C23 /* UIView+Extension.swift in Sources */,
 				86030C21260CAA1B00F3CB1E /* SectionTableViewCell.swift in Sources */,
 				866705F52609F6BE0044F8AA /* DataModel.swift in Sources */,
 				86030C27260CF6DD00F3CB1E /* SectionListModel.swift in Sources */,
 				864B15B926020DC30017E6C9 /* SceneDelegate.swift in Sources */,
+				86694AC5264430770040347D /* PopoverTableViewCell.swift in Sources */,
 				866242822636D2B800BF44B5 /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

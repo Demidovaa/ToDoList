@@ -36,7 +36,7 @@ class CalendarPickerViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    private lazy var footerView = CalendarPickerFooterView(
+    private lazy var footerView = CalendarPickerFooterView (
         
         didTapLastMonthCompletionHandler: { [weak self] in
             guard let self = self else { return }

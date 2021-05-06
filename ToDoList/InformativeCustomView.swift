@@ -50,6 +50,8 @@ class InformativeCustomView: UIView {
         return view
     }()
     
+    var completionHandler: ((UIButton) -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
@@ -95,9 +97,9 @@ class InformativeCustomView: UIView {
     
         infoButton.roundCorners(type: .all, radius: 17)
     }
-    
+        
     @objc
     func tapButton() {
-        
+        completionHandler?(infoButton)
     }
 }
