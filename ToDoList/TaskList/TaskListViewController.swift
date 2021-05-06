@@ -22,12 +22,21 @@ class TaskListViewController: UIViewController {
     
     private var currentEditTaskIndex: IndexPath?
     private var viewColor: UIColor = .white
+    private var infoView = InformativeCustomView(frame: .zero)
+    
+    private var countTask: Int = 0 {
+        didSet {
+            UIView.animate(withDuration: 0.5) {
+                self.infoView.isHidden = self.countTask == 0 ? false : true
+            }
+        }
+    }
     
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -38,11 +47,20 @@ class TaskListViewController: UIViewController {
         registerCell()
         setDataInSection()
         configureAddButton()
+        
+        self.view.insertSubview(infoView, belowSubview: addButtonView)
+        NSLayoutConstraint.activate([
+            infoView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            infoView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            infoView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+            infoView.widthAnchor.constraint(equalTo: self.view.widthAnchor)
+        ])
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
+        countTask = model.taskCount
     }
     
     //MARK: - Private Func
@@ -81,6 +99,7 @@ class TaskListViewController: UIViewController {
     }
     
     private func removeCell(for indexPath: IndexPath) {
+        countTask -= 1
         model.removeTask(from: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .left)
     }
@@ -210,6 +229,7 @@ extension TaskListViewController: DelegateTaskHandler {
         switch result {
         case .success(let task):
             model.add(task: task)
+            countTask += 1
             tableView.insertRows(at: [IndexPath(row: self.model.taskCount - 1, section: 0)],
                                  with: .automatic)
         case .failure:

@@ -46,6 +46,7 @@
 		86B705862602465F00008C23 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86B705842602465F00008C23 /* TaskTableViewCell.xib */; };
 		86B7058D26036BEE00008C23 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B7058C26036BEE00008C23 /* UIView+Extension.swift */; };
 		86B705AA2603A21200008C23 /* TaskPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B705A92603A21200008C23 /* TaskPopupViewController.swift */; };
+		86E0526A2642DC7B00E9DA67 /* InformativeCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E052692642DC7B00E9DA67 /* InformativeCustomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +92,7 @@
 		86B705842602465F00008C23 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		86B7058C26036BEE00008C23 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		86B705A92603A21200008C23 /* TaskPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPopupViewController.swift; sourceTree = "<group>"; };
+		86E052692642DC7B00E9DA67 /* InformativeCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformativeCustomView.swift; sourceTree = "<group>"; };
 		A2C64161B9653AC056B5C464 /* Pods_ToDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -176,6 +178,7 @@
 				864B15B826020DC30017E6C9 /* SceneDelegate.swift */,
 				864B15BC26020DC30017E6C9 /* Main.storyboard */,
 				866705FA260A11430044F8AA /* RadioButton.swift */,
+				86E052692642DC7B00E9DA67 /* InformativeCustomView.swift */,
 				866705F72609F7860044F8AA /* Models */,
 				86030C1D260CA99600F3CB1E /* SectionList */,
 				86B705802602430300008C23 /* TaskList */,
@@ -397,6 +400,7 @@
 				86A4F66B26419BA80014C4B2 /* DayMetadata.swift in Sources */,
 				861789FD2615E4FC0082B084 /* ColorCollectionViewCell.swift in Sources */,
 				866705FB260A11430044F8AA /* RadioButton.swift in Sources */,
+				86E0526A2642DC7B00E9DA67 /* InformativeCustomView.swift in Sources */,
 				866242A62637081A00BF44B5 /* UITableView+Extension.swift in Sources */,
 				86B705852602465F00008C23 /* TaskTableViewCell.swift in Sources */,
 				866705EF2608C3100044F8AA /* UIImage+Extension.swift in Sources */,
