@@ -1,0 +1,45 @@
+/* 
+  Localizable.strings
+  ToDoList
+
+  Created by Anastasia Demidova on 07.05.2021.
+  
+*/
+
+"list" = "My List";
+"today" = "Today";
+"important" = "Important";
+"completedTask" = " completed";
+
+"newSection" = "New Section";
+"editingSection" = "Editing Section";
+"newName" = "New name List";
+"cancel" = "Cancel";
+"done" = "Done";
+"continue" = "Continue";
+"discard" = "Discard Changes";
+
+"infoEmptyList" = "Get a clear view of the day ahead \n\n All your tasks that are due today will show up here. Tap + to add a task.";
+"infoButton" = "Add habit";
+
+"firstInfoLine" = "Each morning, take a few minutes to clear your mind and plan your day.";
+"secondInfoLine" = "Decide what you can do today and postpone the rest for later.";
+"thirdInfoLine" = "Set priorities and start with your most important task first.";
+
+"tasks" = "Tasks";
+"addTask" = "Add task description...";
+"complete" = "Complete by ";
+
+"previous" = "Previous";
+"next" = "Next";
+
+//Alert
+
+"delete" = "Delete ";
+"messageDelete" = "Are you sure you want to delete this section?";
+"yes" = "Yes";
+"no" = "No";
+
+"continueTitle" = "Do you want continue editing?";
+"continueEditing" = "Continue Editing";
+"dismiss" = "Dismiss";

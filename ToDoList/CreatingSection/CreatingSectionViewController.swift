@@ -83,12 +83,14 @@ class CreatingSectionViewController: UIViewController {
     }
     
     private func configureModalNavigationItems() {
+        cancelButton.setTitle("cancel".localized(), for: .normal)
+        doneButton.setTitle("done".localized(), for: .normal)
         switch state {
         case .create:
-            titleLabel.text = "New Section"
+            titleLabel.text = "newSection".localized()
             doneButton.isEnabled = false
         case .editing:
-            titleLabel.text = "Editing Section"
+            titleLabel.text = "editingSection".localized()
             doneButton.isEnabled = true
         }
     }
@@ -106,7 +108,7 @@ class CreatingSectionViewController: UIViewController {
         sectionTextField.textColor = color
         sectionTextField.tintColor = color
         sectionTextField.becomeFirstResponder()
-        sectionTextField.placeholder = "New name list"
+        sectionTextField.placeholder = "newName".localized()
         sectionTextField.clearButtonMode = .whileEditing
         sectionTextField.autocapitalizationType = .sentences
         customTextFieldView.roundCorners(type: .all, radius: AppConstants.textFieldRounding)
@@ -125,8 +127,8 @@ class CreatingSectionViewController: UIViewController {
                                       message: nil,
                                       preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Continue", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Discard Changes",
+        alert.addAction(UIAlertAction(title: "continue".localized(), style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "discard".localized(),
                                       style: .destructive,
                                       handler: { [weak self] _ in
                                         guard let self = self else { return }

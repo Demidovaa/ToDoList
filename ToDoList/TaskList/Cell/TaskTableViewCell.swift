@@ -73,7 +73,7 @@ class TaskTableViewCell: UITableViewCell {
         
         if let date = date {
             dateCompletedLabel.isHidden = false
-            dateCompletedLabel.text = "Complete by " + dateFormatter.string(from: date)
+            dateCompletedLabel.text = "complete".localized() + dateFormatter.string(from: date)
         } else {
             dateCompletedLabel.isHidden = true
         }

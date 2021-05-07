@@ -27,11 +27,11 @@ class CalendarPickerFooterView: UIView {
       let attributedString = NSMutableAttributedString()
 
       attributedString.append(NSAttributedString(attachment: imageAttachment))
-      attributedString.append(NSAttributedString(string: " Previous"))
+        attributedString.append(NSAttributedString(string: "previous".localized()))
 
       button.setAttributedTitle(attributedString, for: .normal)
     } else {
-      button.setTitle("Previous", for: .normal)
+        button.setTitle("previous".localized(), for: .normal)
     }
 
     button.titleLabel?.textColor = .label
@@ -49,12 +49,12 @@ class CalendarPickerFooterView: UIView {
 
     if let chevronImage = UIImage(systemName: "chevron.right.circle.fill") {
       let imageAttachment = NSTextAttachment(image: chevronImage)
-      let attributedString = NSMutableAttributedString(string: "Next ")
+        let attributedString = NSMutableAttributedString(string: "next".localized())
 
       attributedString.append(NSAttributedString(attachment: imageAttachment))
       button.setAttributedTitle(attributedString, for: .normal)
     } else {
-      button.setTitle("Next", for: .normal)
+        button.setTitle("next".localized(), for: .normal)
     }
 
     button.titleLabel?.textColor = .label

@@ -143,8 +143,8 @@
                         <constraints>
                             <constraint firstItem="eXq-tj-9Nf" firstAttribute="bottom" secondItem="mPd-QF-zbo" secondAttribute="bottom" id="4YV-XS-76Y"/>
                             <constraint firstItem="mPd-QF-zbo" firstAttribute="top" secondItem="3pi-Ev-Oup" secondAttribute="top" id="4qL-ST-EEQ"/>
-                            <constraint firstItem="mPd-QF-zbo" firstAttribute="centerX" secondItem="3pi-Ev-Oup" secondAttribute="centerX" id="G8e-8Y-v5F"/>
-                            <constraint firstItem="mPd-QF-zbo" firstAttribute="trailing" secondItem="eXq-tj-9Nf" secondAttribute="trailing" id="yxq-o8-AYC"/>
+                            <constraint firstItem="mPd-QF-zbo" firstAttribute="leading" secondItem="eXq-tj-9Nf" secondAttribute="leading" id="PH1-nN-qqt"/>
+                            <constraint firstItem="mPd-QF-zbo" firstAttribute="trailing" secondItem="eXq-tj-9Nf" secondAttribute="trailing" id="ga2-Zu-jfM"/>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="226" height="200"/>

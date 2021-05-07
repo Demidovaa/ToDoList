@@ -59,15 +59,17 @@ class SectionListViewController: UIViewController {
     
     private func showAlert(index: Int) {
         guard let name = model.getSection(index: index)?.name else { return }
-        let alert = UIAlertController(title: "Delete \(name)", message: "Are you sure you want to delete this section?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "delete".localized() + "\(name)",
+                                      message: "messageDelete".localized(),
+                                      preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Yes",
+        alert.addAction(UIAlertAction(title: "yes".localized(),
                                       style: .destructive,
                                       handler: { [weak self] _ in
                                         guard let self = self else { return }
                                         self.model.deleteSection(index: index)
                                       }))
-        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "no".localized(), style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
     }
@@ -84,7 +86,7 @@ class SectionListViewController: UIViewController {
 extension SectionListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "My List"
+        return "list".localized()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

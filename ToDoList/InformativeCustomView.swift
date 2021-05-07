@@ -24,7 +24,7 @@ class InformativeCustomView: UIView {
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = .systemGray
-        label.text = "Get a clear view of the day ahead \n\n All your tasks that are due today will show up here. Tap + to add a task."
+        label.text = "infoEmptyList".localized()
     
         return label
     }()
@@ -33,7 +33,7 @@ class InformativeCustomView: UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .purple
-        button.setTitle("Add a habit", for: .normal)
+        button.setTitle("infoButton".localized(), for: .normal)
         button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
     
         return button

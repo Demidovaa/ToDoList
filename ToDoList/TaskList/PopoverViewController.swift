@@ -17,21 +17,15 @@ class PopoverViewController: UIViewController {
     
     //MARK: - Data for Static Cell
     
-    private let information = ["Each morning, take a few minutes to clear your mind and plan your day.",
-                               "Decide what you can do today and postpone the rest for later.",
-                               "Set priorities and start with your most important task first."]
+    private let information = ["firstInfoLine".localized(),
+                               "secondInfoLine".localized(),
+                               "thirdInfoLine".localized()]
     
     //MARK: - Lifeсycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.dataSource = self
-        
-        registerCell()
-    }
-    
-    private func registerCell() {
         tableView.register(cellType: PopoverTableViewCell.self)
     }
 }

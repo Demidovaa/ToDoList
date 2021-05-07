@@ -24,11 +24,11 @@ class DatabaseService: DatabaseServicing {
     private func loadStartSections() {
         if UserDefaults.isFirstLaunch() {
             let sectionToday = Section()
-            sectionToday.name = "Today"
+            sectionToday.name = "today".localized()
             guard let color = UIColor.systemYellow.encode() else { return }
             sectionToday.color = color
             let sectionImportant = Section()
-            sectionImportant.name = "Important"
+            sectionImportant.name = "important".localized()
             sectionImportant.color = color
         
             [sectionToday, sectionImportant].forEach { saveObject($0) }

@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="67" id="KGk-i7-Jjw" customClass="SectionTableViewCell" customModule="ToDoList" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="SectionTableViewCell" customModule="ToDoList" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -18,10 +18,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HTQ-pX-z75">
-                        <rect key="frame" x="16" y="10" width="288" height="60.5"/>
+                        <rect key="frame" x="16" y="10" width="288" height="55.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uhg-d0-9nH">
-                                <rect key="frame" x="20" y="17" width="253" height="20"/>
+                                <rect key="frame" x="20" y="12" width="253" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="SKn-Aw-LVR"/>
                                 </constraints>
@@ -30,7 +30,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ely-KC-x3L">
-                                <rect key="frame" x="20" y="43.5" width="26.5" height="12"/>
+                                <rect key="frame" x="20" y="38.5" width="26.5" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -56,13 +56,13 @@
                             <constraint firstItem="Ely-KC-x3L" firstAttribute="leading" secondItem="HTQ-pX-z75" secondAttribute="leading" constant="20" symbolic="YES" id="Hs8-md-Uls"/>
                             <constraint firstItem="Uhg-d0-9nH" firstAttribute="leading" secondItem="HTQ-pX-z75" secondAttribute="leading" constant="20" symbolic="YES" id="MhA-lc-F2P"/>
                             <constraint firstItem="Kiz-9Z-fag" firstAttribute="top" secondItem="HTQ-pX-z75" secondAttribute="top" constant="19" id="TH1-ax-ekN"/>
-                            <constraint firstItem="Uhg-d0-9nH" firstAttribute="top" secondItem="HTQ-pX-z75" secondAttribute="top" constant="17" id="nQX-cR-Fnr"/>
+                            <constraint firstItem="Uhg-d0-9nH" firstAttribute="top" secondItem="HTQ-pX-z75" secondAttribute="top" constant="12" id="nQX-cR-Fnr"/>
                             <constraint firstAttribute="trailing" secondItem="Kiz-9Z-fag" secondAttribute="trailing" constant="15" id="pt0-2v-Ii2"/>
                             <constraint firstAttribute="trailing" secondItem="Uhg-d0-9nH" secondAttribute="trailing" constant="15" id="sRt-h9-U0r"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ze-PN-oPw">
-                        <rect key="frame" x="16" y="10" width="15" height="61.5"/>
+                        <rect key="frame" x="16" y="10" width="15" height="56.5"/>
                         <color key="backgroundColor" systemColor="systemRedColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="0HI-gg-wfT"/>
@@ -71,10 +71,10 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="HTQ-pX-z75" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="KPL-gc-DaS"/>
-                    <constraint firstAttribute="bottom" secondItem="6Ze-PN-oPw" secondAttribute="bottom" constant="9" id="Vvq-UP-OOe"/>
+                    <constraint firstAttribute="bottom" secondItem="6Ze-PN-oPw" secondAttribute="bottom" constant="4" id="Vvq-UP-OOe"/>
                     <constraint firstItem="6Ze-PN-oPw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Wyr-DF-28h"/>
                     <constraint firstAttribute="trailing" secondItem="HTQ-pX-z75" secondAttribute="trailing" constant="16" id="XMS-tt-Xpx"/>
-                    <constraint firstAttribute="bottom" secondItem="HTQ-pX-z75" secondAttribute="bottom" constant="10" id="a1s-Ia-bSg"/>
+                    <constraint firstAttribute="bottom" secondItem="HTQ-pX-z75" secondAttribute="bottom" constant="5" id="a1s-Ia-bSg"/>
                     <constraint firstItem="HTQ-pX-z75" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="fyu-mu-cFj"/>
                     <constraint firstItem="6Ze-PN-oPw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="pOb-Yu-hzp"/>
                 </constraints>

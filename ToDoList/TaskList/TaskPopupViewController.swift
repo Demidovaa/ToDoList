@@ -79,7 +79,7 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
         configureView()
         configureTextView()
         textView.delegate = self
-        textView.setPlaceholder(text: "Add task description...")
+        textView.setPlaceholder(text: "addTask".localized())
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
                                                name: UIResponder.keyboardWillShowNotification,
@@ -161,18 +161,18 @@ class TaskPopupViewController: UIViewController, UITextViewDelegate {
         keyboardHeight += heightSheetView.constant
         textView.resignFirstResponder()
         
-        let alert = UIAlertController(title: "Do you want continue editing?",
+        let alert = UIAlertController(title: "continueTitle".localized(),
                                       message: nil,
                                       preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Continue Editing",
+        alert.addAction(UIAlertAction(title: "continueEditing".localized(),
                                       style: .cancel,
                                       handler: { [weak self] _ in
                                         guard let self = self else { return }
                                         self.textView.becomeFirstResponder()
                                       }))
         
-        alert.addAction(UIAlertAction(title: "Dismiss",
+        alert.addAction(UIAlertAction(title: "dismiss".localized(),
                                       style: .destructive,
                                       handler: { [weak self] _ in
                                         guard let self = self else { return }

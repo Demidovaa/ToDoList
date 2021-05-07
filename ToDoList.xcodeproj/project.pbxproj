@@ -50,6 +50,7 @@
 		86B7058D26036BEE00008C23 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B7058C26036BEE00008C23 /* UIView+Extension.swift */; };
 		86B705AA2603A21200008C23 /* TaskPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B705A92603A21200008C23 /* TaskPopupViewController.swift */; };
 		86E0526A2642DC7B00E9DA67 /* InformativeCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E052692642DC7B00E9DA67 /* InformativeCustomView.swift */; };
+		86E771252645760E00E71389 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86E771272645760E00E71389 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +100,8 @@
 		86B7058C26036BEE00008C23 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		86B705A92603A21200008C23 /* TaskPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPopupViewController.swift; sourceTree = "<group>"; };
 		86E052692642DC7B00E9DA67 /* InformativeCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformativeCustomView.swift; sourceTree = "<group>"; };
+		86E771262645760E00E71389 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		86E771282645763200E71389 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A2C64161B9653AC056B5C464 /* Pods_ToDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -185,6 +188,7 @@
 				864B15BC26020DC30017E6C9 /* Main.storyboard */,
 				866705FA260A11430044F8AA /* RadioButton.swift */,
 				86E052692642DC7B00E9DA67 /* InformativeCustomView.swift */,
+				86E771272645760E00E71389 /* Localizable.strings */,
 				866705F72609F7860044F8AA /* Models */,
 				86030C1D260CA99600F3CB1E /* SectionList */,
 				86B705802602430300008C23 /* TaskList */,
@@ -338,6 +342,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 864B15AA26020DC30017E6C9;
 			productRefGroup = 864B15B426020DC30017E6C9 /* Products */;
@@ -359,6 +364,7 @@
 				864B15C326020DC60017E6C9 /* LaunchScreen.storyboard in Resources */,
 				864B15C026020DC60017E6C9 /* Assets.xcassets in Resources */,
 				86694AC6264430770040347D /* PopoverTableViewCell.xib in Resources */,
+				86E771252645760E00E71389 /* Localizable.strings in Resources */,
 				861789FE2615E4FC0082B084 /* ColorCollectionViewCell.xib in Resources */,
 				864B15BE26020DC30017E6C9 /* Main.storyboard in Resources */,
 			);
@@ -470,6 +476,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		86E771272645760E00E71389 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				86E771262645760E00E71389 /* en */,
+				86E771282645763200E71389 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -477,6 +492,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -539,6 +555,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

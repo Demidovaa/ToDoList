@@ -16,4 +16,8 @@ extension String {
             return NSMutableAttributedString(string: self, attributes: NSAttributedString.strikethroughText)
         }
     }
+    
+    func localized() -> String {
+        return NSLocalizedString(self, comment: "")
+    }
 }

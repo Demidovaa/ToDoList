@@ -46,7 +46,7 @@ class SectionTableViewCell: UITableViewCell {
     
     func confugureCell(title: String, count: Int = 0, completedTask: Int = 0, color: UIColor) {
         nameLabel.text = title
-        countTaskLabel.text = "\(completedTask)/\(count) completed"
+        countTaskLabel.text = "\(completedTask)/\(count)" + "completedTask".localized()
         colorView.backgroundColor = color
         backView.layer.masksToBounds = false
         backView.addShadow(color: .black,
