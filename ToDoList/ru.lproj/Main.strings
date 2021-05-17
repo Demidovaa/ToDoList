@@ -1,0 +1,12 @@
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "Iz7-Qz-ZuW"; */
+"Iz7-Qz-ZuW.normalTitle" = "Cancel";
+
+/* Class = "UILabel"; text = "New Section"; ObjectID = "eFb-KM-RZy"; */
+"eFb-KM-RZy.text" = "New Section";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "mdl-i6-8vF"; */
+"mdl-i6-8vF.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "uNk-Rj-fzU"; */
+"uNk-Rj-fzU.normalTitle" = "Done";
